@@ -1,10 +1,7 @@
 export default function List({ bags }) {
-  console.log(bags);
   return (
     <ul>
       {bags.map((bag) => {
-        console.log({ bags });
-
         return (
           <li key={bag.slug}>
             <h2>{bag.slug}</h2>
