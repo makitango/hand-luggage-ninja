@@ -164,7 +164,7 @@ export const bags = [
     cabinBag: {
       metric: { length: 56, width: 45, height: 25 },
       imperial: { length: 22, width: 17.7, height: 9.8 },
-      isIncluded: true,
+      isIncluded: false,
     },
   },
   {

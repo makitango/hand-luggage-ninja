@@ -10,22 +10,32 @@ export default function List({ bags }) {
             <h2>{bag.slug}</h2>
             <h3>Personal Item</h3>
             <h4>Metric</h4>
-            <p>Length {bag.personalItem.metric.length} cm</p>
-            <p>Width {bag.personalItem.metric.width} cm</p>
-            <p>Height {bag.personalItem.metric.height} cm</p>
+            <p>
+              L{bag.personalItem.metric.length} W{bag.personalItem.metric.width}{" "}
+              H{bag.personalItem.metric.height} cm
+            </p>
             <h4>Imperial</h4>
-            <p>Length {bag.personalItem.imperial.length} in</p>
-            <p>Width {bag.personalItem.imperial.width} in</p>
-            <p>Height {bag.personalItem.imperial.height} in</p>
+            <p>
+              L{bag.personalItem.imperial.length} W
+              {bag.personalItem.imperial.width} H
+              {bag.personalItem.imperial.height} in
+            </p>
             <h3>Cabin bag</h3>
             <h4>Metric</h4>
-            <p>Length {bag.cabinBag.metric.length} cm</p>
-            <p>Width {bag.cabinBag.metric.width} cm</p>
-            <p>Height {bag.cabinBag.metric.height} cm</p>
+            <p>
+              L{bag.cabinBag.metric.length} W{bag.cabinBag.metric.width} H
+              {bag.cabinBag.metric.height} cm
+            </p>
             <h4>Imperial</h4>
-            <p>Length {bag.cabinBag.imperial.length} in</p>
-            <p>Width {bag.cabinBag.imperial.width} in</p>
-            <p>Height {bag.cabinBag.imperial.height} in</p>
+            <p>
+              L{bag.cabinBag.imperial.length} W{bag.cabinBag.imperial.width} H
+              {bag.cabinBag.imperial.height} in
+            </p>
+            <p>
+              {bag.cabinBag.isIncluded
+                ? ""
+                : "💰💰 Caution! Surcharge for cabin bag 💰💰"}
+            </p>
           </li>
         );
       })}
