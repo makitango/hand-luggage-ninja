@@ -1,49 +1,4 @@
 export const bags = [
-  //   {
-  //     slug: "British Airways",
-  //     personalItem: {
-  //       length: 40,
-  //       width: 30,
-  //       height: 15,
-  //     },
-  //     cabinBag: {
-  //       length: 56,
-  //       width: 45,
-  //       height: 25,
-  //       isIncluded: true,
-  //     },
-  //   },
-
-  //   {
-  //     slug: "EasyJet",
-  //     personalItem: {
-  //       length: 45,
-  //       width: 36,
-  //       height: 20,
-  //     },
-  //     cabinBag: {
-  //       length: 56,
-  //       width: 45,
-  //       height: 25,
-  //       isIncluded: false,
-  //     },
-  //   },
-
-  //   {
-  //     slug: "Eurowings",
-  //     personalItem: {
-  //       length: 40,
-  //       width: 30,
-  //       height: 25,
-  //     },
-  //     cabinBag: {
-  //       length: 55,
-  //       width: 40,
-  //       height: 23,
-  //       isIncluded: true,
-  //     },
-  //   },
-  //////////////////////////////////////////////////////////////////////////
   {
     slug: "Air Canada",
     personalItem: {
