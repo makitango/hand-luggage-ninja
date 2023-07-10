@@ -1,7 +1,11 @@
-export default function HomePage() {
+import List from "./List";
+
+export default function HomePage({ bags }) {
+  console.log("pages/index.js", bags);
   return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
+    <></>
+    // <div>
+    //   <List bags={bags} />
+    // </div>
   );
 }

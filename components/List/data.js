@@ -1,4 +1,4 @@
-const data = [
+export const bags = [
   {
     slug: "British Airways",
     personalItem: {
@@ -10,7 +10,7 @@ const data = [
       height: 56,
       width: 45,
       depth: 25,
-      isIncluded: TRUE,
+      isIncluded: true,
     },
   },
 
@@ -25,7 +25,7 @@ const data = [
       height: 56,
       width: 45,
       depth: 25,
-      isIncluded: FALSE,
+      isIncluded: false,
     },
   },
 
@@ -40,7 +40,7 @@ const data = [
       height: 55,
       width: 40,
       depth: 23,
-      isIncluded: TRUE,
+      isIncluded: true,
     },
   },
 
@@ -55,7 +55,7 @@ const data = [
       height: 55,
       width: 40,
       depth: 23,
-      isIncluded: TRUE,
+      isIncluded: true,
     },
   },
 
@@ -70,7 +70,7 @@ const data = [
       height: 55,
       width: 40,
       depth: 20,
-      isIncluded: FALSE,
+      isIncluded: false,
     },
   },
 ];

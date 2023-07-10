@@ -1,12 +1,11 @@
 import GlobalStyle from "../styles";
-import List from "/components/List/data";
+import { bags } from "../components/List/data";
 
-export default function App({ Component, pageProps, data }) {
+export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
-      <List>abc</List>
+      <Component {...pageProps} bags={bags} />
     </>
   );
 }

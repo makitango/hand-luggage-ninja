@@ -1,21 +1,19 @@
-import { data } from "/components/List/data";
-
-export default function List({ data }) {
+export default function List({ bags }) {
   return (
     <ul>
-      {data.map((data) => {
+      {bags.map((bag) => {
         return (
-          <li key={data.slug}>
-            {data.slug}
+          <li key={bag.slug}>
+            {bag.slug.value}
             <li>
-              Personal item height={data.personalItem.height.value}
-              width={data.personalItem.width.value}
-              depth={data.personalItem.depth.value}
+              Personal item height={bag.personalItem.height.value}
+              width={bag.personalItem.width.value}
+              depth={bag.personalItem.depth.value}
             </li>
             <li>
-              Cabin bag height={data.cabinBag.height.value}
-              width={data.cabinBag.width.value}
-              depth={data.cabinBag.depth.value}
+              Cabin bag height={bag.cabinBag.height.value}
+              width={bag.cabinBag.width.value}
+              depth={bag.cabinBag.depth.value}
             </li>
           </li>
         );
