@@ -5,7 +5,7 @@ export default function List({ bags }) {
         return (
           <li key={bag.slug}>
             <h2>{bag.slug}</h2>
-            <h3>Personal Item</h3>
+            <h3>Personal item</h3>
             <p>
               {bag.personalItem.metric.length}x{bag.personalItem.metric.width}x
               {bag.personalItem.metric.height} cm
