@@ -1,7 +1,10 @@
-export default function HomePage() {
+import List from "./List";
+
+export default function HomePage({ bags }) {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <h1>Hand luggage ninja</h1>
+      <List bags={bags} />
     </div>
   );
 }
