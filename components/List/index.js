@@ -1,4 +1,4 @@
-export default function List({ bags }) {
+export default function list({ bags }) {
   return (
     <ul>
       {bags.map(({ slug, personalItem, cabinBag }) => {
@@ -26,7 +26,7 @@ export default function List({ bags }) {
                 {" x "}
                 {personalItem.metric.width}
                 {" x "}
-                {personalItem.metric.height} cm, {personalItemVolume} L
+                {personalItem.metric.height} cm, {personalItemVolume} l
               </p>
               <p>
                 {(personalItem.metric.length / 2.54).toFixed(1)}
@@ -34,7 +34,7 @@ export default function List({ bags }) {
                 {(personalItem.metric.width / 2.54).toFixed(1)}
                 {" x "}
                 {(personalItem.metric.height / 2.54).toFixed(1)} in,{" "}
-                {personalItemVolume} L
+                {personalItemVolume} l
               </p>
               <h3>Cabin bag</h3>
               <p>
@@ -42,7 +42,7 @@ export default function List({ bags }) {
                 {" x "}
                 {cabinBag.metric.width}
                 {" x "}
-                {cabinBag.metric.height} cm, {cabinBagVolume} L
+                {cabinBag.metric.height} cm, {cabinBagVolume} l
               </p>
               <p>
                 {(cabinBag.metric.length / 2.54).toFixed(1)}
@@ -50,7 +50,7 @@ export default function List({ bags }) {
                 {(cabinBag.metric.width / 2.54).toFixed(1)}
                 {" x "}
                 {(cabinBag.metric.height / 2.54).toFixed(1)} in,{" "}
-                {cabinBagVolume} L
+                {cabinBagVolume} l
               </p>
               <p>
                 {cabinBag.isIncluded
