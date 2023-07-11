@@ -1,31 +1,30 @@
 export default function List({ bags }) {
   return (
     <ul>
-      {bags.map((bag) => {
+      {bags.map(({ slug, personalItem, cabinBag }) => {
         return (
-          <li key={bag.slug}>
-            <h2>{bag.slug}</h2>
+          <li key={slug}>
+            <h2>{slug}</h2>
             <h3>Personal item</h3>
             <p>
-              {bag.personalItem.metric.length}x{bag.personalItem.metric.width}x
-              {bag.personalItem.metric.height} cm
+              {personalItem.metric.length}x{personalItem.metric.width}x
+              {personalItem.metric.height} cm
             </p>
             <p>
-              {bag.personalItem.imperial.length}x
-              {bag.personalItem.imperial.width}x
-              {bag.personalItem.imperial.height} in
+              {personalItem.imperial.length}x{personalItem.imperial.width}x
+              {personalItem.imperial.height} in
             </p>
             <h3>Cabin bag</h3>
             <p>
-              {bag.cabinBag.metric.length}x{bag.cabinBag.metric.width}x
-              {bag.cabinBag.metric.height} cm
+              {cabinBag.metric.length}x{cabinBag.metric.width}x
+              {cabinBag.metric.height} cm
             </p>
             <p>
-              {bag.cabinBag.imperial.length}x{bag.cabinBag.imperial.width}x
-              {bag.cabinBag.imperial.height} in
+              {cabinBag.imperial.length}x{cabinBag.imperial.width}x
+              {cabinBag.imperial.height} in
             </p>
             <p>
-              {bag.cabinBag.isIncluded
+              {cabinBag.isIncluded
                 ? ""
                 : "💰💰 Caution! Surcharge for cabin bag 💰💰"}
             </p>
