@@ -23,71 +23,49 @@ export default function AirlineList({ sortedAirlines, unitSystem }) {
             <li key={id}>
               <h2>{name}</h2>
               <section>
-                <h3>Size Personal Item:</h3>
-                <ul>
-                  <li>
-                    <strong>Length:</strong>{" "}
-                    {`${Math.round(
-                      convertUnits(personalItemLength, unitSystem)
-                    )} ${unitSystem === "metric" ? "cm" : "in"}`}
-                  </li>
-                  <li>
-                    <strong>Width:</strong>{" "}
-                    {`${Math.round(
-                      convertUnits(personalItemWidth, unitSystem)
-                    )} ${unitSystem === "metric" ? "cm" : "in"}`}
-                  </li>
-                  <li>
-                    <strong>Height:</strong>{" "}
-                    {`${Math.round(
-                      convertUnits(personalItemHeight, unitSystem)
-                    )} ${unitSystem === "metric" ? "cm" : "in"}`}
-                  </li>
-                  <li>
-                    <strong>Volume: </strong>
-                    {Math.round(
-                      (personalItemLength *
-                        personalItemWidth *
-                        personalItemHeight) /
-                        1000
-                    )}{" "}
-                    l
-                  </li>
-                </ul>
-                <h3>Cabin Bag:</h3>
-                <ul>
-                  <li>
-                    <strong>Length:</strong>{" "}
-                    {`${Math.round(convertUnits(cabinBagLength, unitSystem))} ${
-                      unitSystem === "metric" ? "cm" : "in"
-                    }`}
-                  </li>
-                  <li>
-                    <strong>Width:</strong>{" "}
-                    {`${Math.round(convertUnits(cabinBagWidth, unitSystem))} ${
-                      unitSystem === "metric" ? "cm" : "in"
-                    }`}
-                  </li>
-                  <li>
-                    <strong>Height:</strong>{" "}
-                    {`${Math.round(convertUnits(cabinBagHeight, unitSystem))} ${
-                      unitSystem === "metric" ? "cm" : "in"
-                    }`}
-                  </li>
-                  <li>
-                    <strong>Volume: </strong>
-                    {Math.round(
-                      (cabinBagLength * cabinBagWidth * cabinBagHeight) / 1000
-                    )}{" "}
-                    l
-                  </li>
-                  <li>
-                    {" "}
-                    {freeCabinBag
-                      ? ""
-                      : "💰💰 Caution! Surcharge for cabin bag 💰💰"}
-                  </li>
-                </ul>
+                <strong>Size Personal Item:</strong>
+                <p>
+                  {`${Math.round(
+                    convertUnits(personalItemLength, unitSystem)
+                  )}`}
+                  {" x "}
+                  {`${Math.round(
+                    convertUnits(personalItemWidth, unitSystem)
+                  )} `}
+                  {" x "}
+                  {`${Math.round(
+                    convertUnits(personalItemHeight, unitSystem)
+                  )} ${unitSystem === "metric" ? "cm" : "in"}`}
+                  {" | "}
+                  {Math.round(
+                    (personalItemLength *
+                      personalItemWidth *
+                      personalItemHeight) /
+                      1000
+                  )}{" "}
+                  l
+                </p>
+                <strong>Cabin Bag:</strong>
+                <p>
+                  {`${Math.round(convertUnits(cabinBagLength, unitSystem))}`}
+                  {" x "}
+                  {`${Math.round(convertUnits(cabinBagWidth, unitSystem))} `}
+                  {" x "}
+                  {`${Math.round(convertUnits(cabinBagHeight, unitSystem))} ${
+                    unitSystem === "metric" ? "cm" : "in"
+                  }`}
+                  {" | "}
+                  {Math.round(
+                    (cabinBagLength * cabinBagWidth * cabinBagHeight) / 1000
+                  )}{" "}
+                  l
+                </p>
+                <p>
+                  {" "}
+                  {freeCabinBag
+                    ? ""
+                    : "💰💰 Caution! Surcharge for cabin bag 💰💰"}
+                </p>
               </section>
             </li>
           );
