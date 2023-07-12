@@ -1,20 +1,29 @@
-import List from "../components/List";
+import AirlineList from "@/components/AirlineList";
 
 export default function HomePage({
-  bags,
-  onSortBagsAlphabetical,
-  onSortBagsPersonalItem,
-  onSortBagsCabinBag,
+  handleSortOptionChange,
+  sortedAirlines,
+  unitSystem,
+  handleUnitToggle,
 }) {
   return (
     <div>
-      <h1>Hand luggage ninja</h1>
-      <h4>Sort by</h4>
-      <button onClick={onSortBagsAlphabetical}>Alphabetical</button>
-      <button onClick={onSortBagsPersonalItem}>Personal item</button>
-      <button onClick={onSortBagsCabinBag}>Cabin bag</button>
-
-      <List bags={bags} />
+      <button type="button" onClick={handleUnitToggle}>
+        Change Unit System
+      </button>
+      <hr />
+      <div>
+        <button onClick={() => handleSortOptionChange("alphabetical")}>
+          Sort Alphabetically
+        </button>
+        <button onClick={() => handleSortOptionChange("personalItem")}>
+          Sort by Personal Item Volume
+        </button>
+        <button onClick={() => handleSortOptionChange("cabinBag")}>
+          Sort by Cabin Bag Volume
+        </button>
+      </div>
+      <AirlineList sortedAirlines={sortedAirlines} unitSystem={unitSystem} />
     </div>
   );
 }

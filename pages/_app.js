@@ -1,54 +1,40 @@
 import GlobalStyle from "../styles";
-import { bags } from "../lib/data";
+import { airlines } from "../lib/data";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
-  const [sortedBags, setSortedBags] = useState(bags);
+  const [unitSystem, setUnitSystem] = useState("metric");
+  const [sortedAirlines, setSortedAirlines] = useState(airlines);
 
-  function handleSortBagsAlphabetical() {
-    setSortedBags(bags);
+  function calculateVolume(dimensions) {
+    const { length, width, height } = dimensions;
+    const volume = length * width * height;
+    return volume;
   }
 
-  function handleSortBagsPersonalItem() {
-    const sortedBags = bags
-      .map(({ slug, personalItem, cabinBag }) => {
-        const personalItemVolume = (
-          (personalItem.metric.length *
-            personalItem.metric.width *
-            personalItem.metric.height) /
-          1000
-        ).toFixed(1);
-
-        return {
-          slug,
-          personalItem,
-          cabinBag,
-          personalItemVolume: parseFloat(personalItemVolume),
-        };
-      })
-      .sort((a, b) => b.personalItemVolume - a.personalItemVolume);
-    setSortedBags(sortedBags);
+  function handleUnitToggle() {
+    setUnitSystem((prevUnitSystem) =>
+      prevUnitSystem === "metric" ? "imperial" : "metric"
+    );
   }
 
-  function handleSortBagsCabinBag() {
-    const sortedBags = bags
-      .map(({ slug, personalItem, cabinBag }) => {
-        const cabinBagVolume = (
-          (cabinBag.metric.length *
-            cabinBag.metric.width *
-            cabinBag.metric.height) /
-          1000
-        ).toFixed(1);
+  function handleSortOptionChange(option) {
+    const sortedList = [...sortedAirlines];
 
-        return {
-          slug,
-          personalItem,
-          cabinBag,
-          cabinBagVolume: parseFloat(cabinBagVolume),
-        };
-      })
-      .sort((a, b) => b.cabinBagVolume - a.cabinBagVolume);
-    setSortedBags(sortedBags);
+    if (option === "alphabetical") {
+      sortedList.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (option === "personalItem") {
+      sortedList.sort(
+        (b, a) =>
+          calculateVolume(a.personalItem) - calculateVolume(b.personalItem)
+      );
+    } else if (option === "cabinBag") {
+      sortedList.sort(
+        (b, a) => calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag)
+      );
+    }
+
+    setSortedAirlines(sortedList);
   }
 
   return (
@@ -56,10 +42,10 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Component
         {...pageProps}
-        bags={sortedBags}
-        onSortBagsAlphabetical={handleSortBagsAlphabetical}
-        onSortBagsPersonalItem={handleSortBagsPersonalItem}
-        onSortBagsCabinBag={handleSortBagsCabinBag}
+        sortedAirlines={sortedAirlines}
+        handleSortOptionChange={handleSortOptionChange}
+        handleUnitToggle={handleUnitToggle}
+        unitSystem={unitSystem}
       />
     </>
   );
