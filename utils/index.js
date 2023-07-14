@@ -3,7 +3,7 @@ export function convertDimensionsToInches(dimensions) {
   let convertedDimensions = {};
 
   for (let key in dimensions) {
-    convertedDimensions[key] = (dimensions[key] * conversionFactor).toFixed(1);
+    convertedDimensions[key] = Math.round(dimensions[key] * conversionFactor);
   }
 
   return convertedDimensions;

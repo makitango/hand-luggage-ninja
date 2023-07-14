@@ -4,90 +4,51 @@ import { useState } from "react";
 import { convertDimensionsToInches } from "@/utils";
 
 export default function App({ Component, pageProps }) {
-  {
-    const [metricSystem, setMetricSystem] = useState(true);
-    const [sorting, setSorting] = useState("alphabetical");
+  const [metricSystem, setMetricSystem] = useState(true);
+  const [sorting, setSorting] = useState("alphabetical");
 
-    const correctSystemAirlines = metricSystem
-      ? airlines
-      : airlines.map((airline) => ({
-          ...airline,
-          personalItem: convertDimensionsToInches(airline.personalItem),
-          cabinBag: convertDimensionsToInches(airline.cabinBag),
-        }));
+  const correctSystemAirlines = metricSystem
+    ? airlines
+    : airlines.map((airline) => ({
+        ...airline,
+        personalItem: convertDimensionsToInches(airline.personalItem),
+        cabinBag: convertDimensionsToInches(airline.cabinBag),
+      }));
 
-    const calculateVolume = (dimensions) => {
-      const { length, width, height } = dimensions;
-      const volume = (length * width * height) / 1000;
-      return volume;
-    };
+  const calculateVolume = (dimensions) => {
+    const { length, width, height } = dimensions;
+    const volume = Math.round((length * width * height) / 1000);
+    return volume;
+  };
 
-    // const sortedAirlines = correctSystemAirlines
-    //   .slice()
-    //   .sort((a, b) =>
-    //     sorting === "alphabetical"
-    //       ? a.name.localeCompare(b.name)
-    //       : b.name.localeCompare(a.name)
-    //   );
+  const personalItemVolume = calculateVolume(airlines[0].personalItem);
+  const cabinBagVolume = calculateVolume(airlines[0].cabinBag);
 
-    const sortedAirlines = correctSystemAirlines
-      .slice()
-      .sort((a, b) =>
-        sorting === "alphabetical"
-          ? airlines.sort((a, b) => a.name.localeCompare(b.name))
-          : sorting === "personalItem"
-          ? airlines.sort(
-              (b, a) =>
-                calculateVolume(a.personalItem) -
-                calculateVolume(b.personalItem)
-            )
-          : sorting === "cabinBag"
-          ? airlines.sort(
-              (b, a) =>
-                calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag)
-            )
-          : sortedAirlines
-      );
-
-    // const [unitSystem, setUnitSystem] = useState("metric");
-    // const [sortedAirlines, setSortedAirlines] = useState(airlines);
-
-    // function handleUnitToggle() {
-    //   setUnitSystem((prevUnitSystem) =>
-    //     prevUnitSystem === "metric" ? "imperial" : "metric"
-    //   );
-    // }
-
-    // function handleSortOptionChange(option) {
-    //   const sortedList = [...sortedAirlines];
-
-    //   if (sorting === "alphabetical") {
-    //     sortedList.sort((a, b) => a.name.localeCompare(b.name));
-    //   } else if (option === "personalItem") {
-    //     sortedList.sort(
-    //       (b, a) =>
-    //         calculateVolume(a.personalItem) - calculateVolume(b.personalItem)
-    //     );
-    //   } else if (option === "cabinBag") {
-    //     sortedList.sort(
-    //       (b, a) => calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag)
-    //     );
-    //   }
-
-    //   setSortedAirlines(sortedList);
-    // }
-
-    return (
-      <>
-        <GlobalStyle />
-        <Component
-          {...pageProps}
-          metricSystem={metricSystem}
-          setMetricSystem={setMetricSystem}
-          sortedAirlines={sortedAirlines}
-          setSorting={setSorting}
-        />
-      </>
+  const sortedAirlines = correctSystemAirlines
+    .slice()
+    .sort((a, b) =>
+      sorting === "alphabetical"
+        ? a.name.localeCompare(b.name)
+        : sorting === "personalItem"
+        ? calculateVolume(b.personalItem) - calculateVolume(a.personalItem)
+        : sorting === "cabinBag"
+        ? calculateVolume(b.cabinBag) - calculateVolume(a.cabinBag)
+        : 0
     );
-  }
+
+  return (
+    <>
+      <GlobalStyle />
+      <Component
+        {...pageProps}
+        metricSystem={metricSystem}
+        setMetricSystem={setMetricSystem}
+        sortedAirlines={sortedAirlines}
+        setSorting={setSorting}
+        calculateVolume={calculateVolume}
+        personalItemVolume={personalItemVolume}
+        cabinBagVolume={cabinBagVolume}
+      />
+    </>
+  );
 }
