@@ -51,17 +51,13 @@ export default function HomePage() {
       <button onClick={() => setMetricSystem(false)}>Imperial</button>
 
       <hr />
-      <strong>Sort by </strong>
+      <strong>Sort </strong>
 
-      <button onClick={() => setSorting("alphabetical")}>
-        sort alphabetical
-      </button>
+      <button onClick={() => setSorting("alphabetical")}>alphabetical</button>
       <button onClick={() => setSorting("personalItem")}>
-        sort by personal item volume
+        personal item volume
       </button>
-      <button onClick={() => setSorting("cabinBag")}>
-        sort by cabin bag volume
-      </button>
+      <button onClick={() => setSorting("cabinBag")}>cabin bag volume</button>
 
       <hr />
 
