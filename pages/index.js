@@ -1,29 +1,35 @@
 import AirlineList from "@/components/AirlineList";
 
 export default function HomePage({
-  handleSortOptionChange,
   sortedAirlines,
-  unitSystem,
-  handleUnitToggle,
+  metricSystem,
+  setMetricSystem,
+  setSorting,
 }) {
   return (
-    <div>
-      <button type="button" onClick={handleUnitToggle}>
-        Change Unit System
+    <>
+      <button onClick={() => setMetricSystem(!metricSystem)}>
+        switch unit system
       </button>
+
       <hr />
-      <div>
-        <button onClick={() => handleSortOptionChange("alphabetical")}>
-          Sort Alphabetically
-        </button>
-        <button onClick={() => handleSortOptionChange("personalItem")}>
-          Sort by Personal Item Volume
-        </button>
-        <button onClick={() => handleSortOptionChange("cabinBag")}>
-          Sort by Cabin Bag Volume
-        </button>
-      </div>
-      <AirlineList sortedAirlines={sortedAirlines} unitSystem={unitSystem} />
-    </div>
+
+      <button onClick={() => setSorting("ascending")}>sort ascending</button>
+      <button onClick={() => setSorting("descending")}>sort descending</button>
+
+      <hr />
+
+      {sortedAirlines.map((airline) => {
+        return (
+          <AirlineList
+            key={airline.key}
+            airline={airline}
+            metricSystem={metricSystem}
+            setSorting={setSorting}
+            setMetricSystem={setMetricSystem}
+          />
+        );
+      })}
+    </>
   );
 }
