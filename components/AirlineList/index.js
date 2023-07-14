@@ -8,19 +8,20 @@ export default function AirlineList({
     <div key={key} style={{ border: "1px solid black", padding: 10 }}>
       <h2>{name}</h2>
       <p>
-        <strong>Personal item: </strong>
-        {personalItem.length} x {personalItem.width} x {personalItem.height}
+        <strong>Personal item </strong>
+        {Math.round(personalItem.length)} x {Math.round(personalItem.width)} x
+        {Math.round(personalItem.height)}
         {metricSystem ? " cm" : " inch"}
         {" | "}
-        {personalItemVolume} l
+        <strong>{personalItemVolume} l</strong>
       </p>
-      <p></p>
       <p>
-        <strong>Cabin bag: </strong>
-        {cabinBag.length} x {cabinBag.width} x {cabinBag.height}
+        <strong>Cabin bag </strong>
+        {Math.round(cabinBag.length)} x {Math.round(cabinBag.width)} x
+        {Math.round(cabinBag.height)}
         {metricSystem ? " cm" : " inch"}
         {" | "}
-        {cabinBagVolume} l
+        <strong>{cabinBagVolume} l</strong>
       </p>
       {freeCabinBag ? "" : "💰💰 Cabin bag not free 💰💰"}
     </div>
