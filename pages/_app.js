@@ -6,7 +6,7 @@ import { convertDimensionsToInches } from "@/utils";
 export default function App({ Component, pageProps }) {
   {
     const [metricSystem, setMetricSystem] = useState(true);
-    const [sorting, setSorting] = useState("ascending");
+    const [sorting, setSorting] = useState("alphabetical");
 
     const correctSystemAirlines = metricSystem
       ? airlines
@@ -16,22 +16,41 @@ export default function App({ Component, pageProps }) {
           cabinBag: convertDimensionsToInches(airline.cabinBag),
         }));
 
+    const calculateVolume = (dimensions) => {
+      const { length, width, height } = dimensions;
+      const volume = (length * width * height) / 1000;
+      return volume;
+    };
+
+    // const sortedAirlines = correctSystemAirlines
+    //   .slice()
+    //   .sort((a, b) =>
+    //     sorting === "alphabetical"
+    //       ? a.name.localeCompare(b.name)
+    //       : b.name.localeCompare(a.name)
+    //   );
+
     const sortedAirlines = correctSystemAirlines
       .slice()
       .sort((a, b) =>
-        sorting === "ascending"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name)
+        sorting === "alphabetical"
+          ? airlines.sort((a, b) => a.name.localeCompare(b.name))
+          : sorting === "personalItem"
+          ? airlines.sort(
+              (b, a) =>
+                calculateVolume(a.personalItem) -
+                calculateVolume(b.personalItem)
+            )
+          : sorting === "cabinBag"
+          ? airlines.sort(
+              (b, a) =>
+                calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag)
+            )
+          : sortedAirlines
       );
 
     // const [unitSystem, setUnitSystem] = useState("metric");
     // const [sortedAirlines, setSortedAirlines] = useState(airlines);
-
-    // function calculateVolume(dimensions) {
-    //   const { length, width, height } = dimensions;
-    //   const volume = length * width * height;
-    //   return volume;
-    // }
 
     // function handleUnitToggle() {
     //   setUnitSystem((prevUnitSystem) =>

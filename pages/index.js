@@ -5,6 +5,7 @@ export default function HomePage({
   metricSystem,
   setMetricSystem,
   setSorting,
+  calculateVolume,
 }) {
   return (
     <>
@@ -14,8 +15,15 @@ export default function HomePage({
 
       <hr />
 
-      <button onClick={() => setSorting("ascending")}>sort ascending</button>
-      <button onClick={() => setSorting("descending")}>sort descending</button>
+      <button onClick={() => setSorting("alphabetical")}>
+        sort alphabetical
+      </button>
+      <button onClick={() => setSorting("personalItem")}>
+        sort by personal item volume
+      </button>
+      <button onClick={() => setSorting("cabinBag")}>
+        sort by cabin bag volume
+      </button>
 
       <hr />
 
@@ -27,6 +35,7 @@ export default function HomePage({
             metricSystem={metricSystem}
             setSorting={setSorting}
             setMetricSystem={setMetricSystem}
+            calculateVolume={calculateVolume}
           />
         );
       })}

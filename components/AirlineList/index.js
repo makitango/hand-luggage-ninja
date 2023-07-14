@@ -1,17 +1,21 @@
-export default function AirlineList({ airline, metricSystem }) {
+export default function AirlineList({
+  airline: { key, name, personalItem, cabinBag, freeCabinBag },
+  metricSystem,
+  calculateVolume,
+}) {
   return (
-    <div key={airline.key} style={{ border: "1px solid black", padding: 10 }}>
-      <p>{airline.name}</p>
+    <div key={key} style={{ border: "1px solid black", padding: 10 }}>
+      <p>{name}</p>
       <p>
         Personal Item in {metricSystem ? "cm" : "inch"}: l:{" "}
-        {airline.personalItem.length} w: {airline.personalItem.width} h:{" "}
-        {airline.personalItem.height}
+        {personalItem.length} w: {personalItem.width} h: {personalItem.height}
+        {/* {calculateVolume(personalItem)} */}
       </p>
       <p>
-        Cabin bag in {metricSystem ? "cm" : "inch"}: l:{" "}
-        {airline.cabinBag.length} w: {airline.cabinBag.width} h:{" "}
-        {airline.cabinBag.height}
+        Cabin bag in {metricSystem ? "cm" : "inch"}: l: {cabinBag.length} w:{" "}
+        {cabinBag.width} h: {cabinBag.height}
       </p>
+      {freeCabinBag ? "" : "💰💰 Cabin bag not free 💰💰"}
     </div>
   );
 }
