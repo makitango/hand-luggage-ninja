@@ -68,7 +68,7 @@ export default function HomePage() {
 
         return (
           <AirlineList
-            key={airline.key}
+            key={airline.id}
             airline={airline}
             metricSystem={metricSystem}
             personalItemVolume={personalItemVolume}
