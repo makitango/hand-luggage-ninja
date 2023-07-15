@@ -1,47 +1,16 @@
-import AirlineList from "@/components/AirlineList";
+import GlobalStyle from "../styles";
 import { useState } from "react";
+import AirlineList from "@/components/AirlineList";
 import { convertDimensionsToInches } from "@/utils";
-import { airlines } from "@/lib/data";
-import GlobalStyle from "@/styles";
 
-export default function HomePage() {
-  const [metricSystem, setMetricSystem] = useState(true);
-  const [sorting, setSorting] = useState("alphabetical");
-
-  const correctSystemAirlines = metricSystem
-    ? airlines
-    : airlines.map((airline) => ({
-        ...airline,
-        personalItem: convertDimensionsToInches(airline.personalItem),
-        cabinBag: convertDimensionsToInches(airline.cabinBag),
-      }));
-
-  const calculateVolume = (dimensions) => {
-    const { length, width, height } = dimensions;
-    const volume = Math.round((length * width * height) / 1000);
-    return volume;
-  };
-
-  const sortedAirlines = correctSystemAirlines
-    .slice()
-    .sort((a, b) =>
-      sorting === "alphabetical"
-        ? a.name.localeCompare(b.name)
-        : sorting === "personalItem"
-        ? calculateVolume(b.personalItem) - calculateVolume(a.personalItem)
-        : sorting === "cabinBag"
-        ? calculateVolume(b.cabinBag) - calculateVolume(a.cabinBag)
-        : 0
-    );
-
-  const metricVolumes = airlines.reduce((volumes, airline) => {
-    volumes[airline.key] = {
-      personalItemVolume: calculateVolume(airline.personalItem),
-      cabinBagVolume: calculateVolume(airline.cabinBag),
-    };
-    return volumes;
-  }, {});
-
+export default function HomePage({
+  metricSystem,
+  sortedAirlines,
+  setMetricSystem,
+  setSorting,
+  calculateVolume,
+  metricVolumes,
+}) {
   return (
     <>
       <GlobalStyle />
@@ -64,11 +33,11 @@ export default function HomePage() {
       {sortedAirlines.map((airline) => {
         const { personalItem, cabinBag } = airline;
         const { personalItemVolume, cabinBagVolume } =
-          metricVolumes[airline.key];
+          metricVolumes[airline.id];
 
         return (
           <AirlineList
-            key={airline.key}
+            key={airline.id}
             airline={airline}
             metricSystem={metricSystem}
             personalItemVolume={personalItemVolume}

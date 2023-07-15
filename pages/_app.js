@@ -1,7 +1,8 @@
-import GlobalStyle from "../styles";
-import { airlines } from "../lib/data";
-import { useState } from "react";
+import { airlines } from "@/lib/data";
 import { convertDimensionsToInches } from "@/utils";
+import GlobalStyle from "@/styles";
+import AirlineList from "@/components/AirlineList";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [metricSystem, setMetricSystem] = useState(true);
@@ -21,8 +22,13 @@ export default function App({ Component, pageProps }) {
     return volume;
   };
 
-  const personalItemVolume = calculateVolume(airlines[0].personalItem);
-  const cabinBagVolume = calculateVolume(airlines[0].cabinBag);
+  const metricVolumes = airlines.reduce((volumes, airline) => {
+    volumes[airline.id] = {
+      personalItemVolume: calculateVolume(airline.personalItem),
+      cabinBagVolume: calculateVolume(airline.cabinBag),
+    };
+    return volumes;
+  }, {});
 
   const sortedAirlines = correctSystemAirlines
     .slice()
@@ -46,8 +52,7 @@ export default function App({ Component, pageProps }) {
         sortedAirlines={sortedAirlines}
         setSorting={setSorting}
         calculateVolume={calculateVolume}
-        personalItemVolume={personalItemVolume}
-        cabinBagVolume={cabinBagVolume}
+        metricVolumes={metricVolumes}
       />
     </>
   );

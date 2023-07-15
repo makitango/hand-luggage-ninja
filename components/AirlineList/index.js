@@ -1,11 +1,11 @@
 export default function AirlineList({
-  airline: { key, name, personalItem, cabinBag, freeCabinBag },
+  airline: { id, name, personalItem, cabinBag, freeCabinBag },
   metricSystem,
   personalItemVolume,
   cabinBagVolume,
 }) {
   return (
-    <div key={key} style={{ border: "1px solid black", padding: 10 }}>
+    <div key={id} style={{ border: "1px solid black", padding: 10 }}>
       <h2>{name}</h2>
       <p>
         <strong>Personal item </strong>
