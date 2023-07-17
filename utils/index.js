@@ -1,10 +1,7 @@
-export function convertDimensionsToInches(dimensions) {
-  const conversionFactor = 0.393701;
-  let convertedDimensions = {};
+export function convertDimension(value, unitSystem) {
+  return Math.round(unitSystem === "metric" ? value : value * 0.393701);
+}
 
-  for (let key in dimensions) {
-    convertedDimensions[key] = Math.round(dimensions[key] * conversionFactor);
-  }
-
-  return convertedDimensions;
+export function calculateVolume({ length, width, height }) {
+  return Math.round((length * width * height) / 1000);
 }
