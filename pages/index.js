@@ -20,16 +20,16 @@ export default function HomePage({
       <div>
         <strong>Sort </strong>
         <button onClick={() => handleSortOptionChange("alphabetical")}>
-          alphabetical
+          Alphabetical
         </button>
         <button onClick={() => handleSortOptionChange("personalItem")}>
-          personal item volume
+          Personal item volume
         </button>
         <button onClick={() => handleSortOptionChange("cabinBag")}>
-          cabin bag volume
+          Cabin bag volume
         </button>
         <button onClick={() => handleSortOptionChange("combined")}>
-          combined volume
+          Combined volume
         </button>
         <hr />
       </div>
