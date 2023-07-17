@@ -21,14 +21,35 @@ export default function App({ Component, pageProps }) {
     if (option === "alphabetical") {
       sortedList.sort((a, b) => a.name.localeCompare(b.name));
     } else if (option === "personalItem") {
-      sortedList.sort(
-        (b, a) =>
-          calculateVolume(a.personalItem) - calculateVolume(b.personalItem)
-      );
+      sortedList.sort((b, a) => {
+        const volumeDifference =
+          calculateVolume(a.personalItem) - calculateVolume(b.personalItem);
+
+        if (volumeDifference === 0) {
+          if (a.freeCabinBag && !b.freeCabinBag) {
+            return 1;
+          } else if (!a.freeCabinBag && b.freeCabinBag) {
+            return -1;
+          }
+        }
+
+        return volumeDifference;
+      });
     } else if (option === "cabinBag") {
-      sortedList.sort(
-        (b, a) => calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag)
-      );
+      sortedList.sort((b, a) => {
+        const volumeDifference =
+          calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag);
+
+        if (volumeDifference === 0) {
+          if (a.freeCabinBag && !b.freeCabinBag) {
+            return 1;
+          } else if (!a.freeCabinBag && b.freeCabinBag) {
+            return -1;
+          }
+        }
+
+        return volumeDifference;
+      });
     }
 
     setSortedAirlines(sortedList);
