@@ -28,6 +28,9 @@ export default function HomePage({
         <button onClick={() => handleSortOptionChange("cabinBag")}>
           cabin bag volume
         </button>
+        <button onClick={() => handleSortOptionChange("combined")}>
+          combined volume
+        </button>
         <hr />
       </div>
       <AirlineList sortedAirlines={sortedAirlines} unitSystem={unitSystem} />

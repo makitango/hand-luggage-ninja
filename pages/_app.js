@@ -50,6 +50,23 @@ export default function App({ Component, pageProps }) {
 
         return volumeDifference;
       });
+    } else if (option === "combined") {
+      sortedList.sort((b, a) => {
+        const totalVolumeA =
+          calculateVolume(a.personalItem) + calculateVolume(a.cabinBag);
+        const totalVolumeB =
+          calculateVolume(b.personalItem) + calculateVolume(b.cabinBag);
+
+        if (totalVolumeA === totalVolumeB) {
+          if (a.freeCabinBag && !b.freeCabinBag) {
+            return 1;
+          } else if (!a.freeCabinBag && b.freeCabinBag) {
+            return -1;
+          }
+        }
+
+        return totalVolumeA - totalVolumeB;
+      });
     }
 
     setSortedAirlines(sortedList);
