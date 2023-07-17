@@ -1,8 +1,4 @@
-import {
-  calculateVolume,
-  calculateVolumeCombined,
-  convertDimension,
-} from "@/utils";
+import { calculateVolume, convertDimension } from "@/utils";
 
 export default function AirlineList({ airlines, unitSystem }) {
   return (
@@ -38,7 +34,7 @@ export default function AirlineList({ airlines, unitSystem }) {
               <p>
                 <strong>
                   Combined volume{" "}
-                  {calculateVolumeCombined(personalItem, cabinBag)}
+                  {calculateVolume(personalItem) + calculateVolume(cabinBag)}
                   {" l"}
                 </strong>
               </p>
