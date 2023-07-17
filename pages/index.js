@@ -2,7 +2,7 @@ import AirlineList from "@/components/AirlineList";
 
 export default function HomePage({
   handleSortOptionChange,
-  sortedAirlines,
+  airlines,
   unitSystem,
   handleUnitSystemChange,
 }) {
@@ -33,7 +33,7 @@ export default function HomePage({
         </button>
         <hr />
       </div>
-      <AirlineList sortedAirlines={sortedAirlines} unitSystem={unitSystem} />
+      <AirlineList airlines={airlines} unitSystem={unitSystem} />
     </div>
   );
 }

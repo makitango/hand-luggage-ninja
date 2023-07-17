@@ -1,27 +1,23 @@
 import GlobalStyle from "../styles";
-import { airlines } from "../lib/data";
+import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
 import { calculateVolume } from "@/utils";
 
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
-  const [sortedAirlines, setSortedAirlines] = useState(airlines);
+  const [airlines, setAirlines] = useState(initialAirlines);
 
   function handleUnitSystemChange(option) {
-    if (option === "metric") {
-      setUnitSystem("metric");
-    } else if (option === "imperial") {
-      setUnitSystem("imperial");
-    }
+    setUnitSystem(option);
   }
 
   function handleSortOptionChange(option) {
-    const sortedList = [...sortedAirlines];
+    const sortedAirlines = [...airlines];
 
     if (option === "alphabetical") {
-      sortedList.sort((a, b) => a.name.localeCompare(b.name));
+      sortedAirlines.sort((a, b) => a.name.localeCompare(b.name));
     } else if (option === "personalItem") {
-      sortedList.sort((b, a) => {
+      sortedAirlines.sort((b, a) => {
         const volumeDifference =
           calculateVolume(a.personalItem) - calculateVolume(b.personalItem);
 
@@ -36,7 +32,7 @@ export default function App({ Component, pageProps }) {
         return volumeDifference;
       });
     } else if (option === "cabinBag") {
-      sortedList.sort((b, a) => {
+      sortedAirlines.sort((b, a) => {
         const volumeDifference =
           calculateVolume(a.cabinBag) - calculateVolume(b.cabinBag);
 
@@ -51,7 +47,7 @@ export default function App({ Component, pageProps }) {
         return volumeDifference;
       });
     } else if (option === "combined") {
-      sortedList.sort((b, a) => {
+      sortedAirlines.sort((b, a) => {
         const totalVolumeA =
           calculateVolume(a.personalItem) + calculateVolume(a.cabinBag);
         const totalVolumeB =
@@ -69,7 +65,7 @@ export default function App({ Component, pageProps }) {
       });
     }
 
-    setSortedAirlines(sortedList);
+    setAirlines(sortedAirlines);
   }
 
   return (
@@ -77,7 +73,7 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Component
         {...pageProps}
-        sortedAirlines={sortedAirlines}
+        airlines={airlines}
         handleSortOptionChange={handleSortOptionChange}
         handleUnitSystemChange={handleUnitSystemChange}
         unitSystem={unitSystem}
