@@ -1,7 +1,7 @@
 import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
-import { calculateVolume } from "@/utils";
+import { calculateVolume, calculateVolumeCombined } from "@/utils";
 
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
@@ -48,10 +48,14 @@ export default function App({ Component, pageProps }) {
       });
     } else if (option === "combined") {
       sortedAirlines.sort((b, a) => {
-        const totalVolumeA =
-          calculateVolume(a.personalItem) + calculateVolume(a.cabinBag);
-        const totalVolumeB =
-          calculateVolume(b.personalItem) + calculateVolume(b.cabinBag);
+        const totalVolumeA = calculateVolumeCombined(
+          a.personalItem,
+          a.cabinBag
+        );
+        const totalVolumeB = calculateVolumeCombined(
+          b.personalItem,
+          b.cabinBag
+        );
 
         if (totalVolumeA === totalVolumeB) {
           if (a.freeCabinBag && !b.freeCabinBag) {
