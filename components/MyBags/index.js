@@ -9,7 +9,7 @@ export default function MyBags({
 }) {
   return (
     <>
-      <h3>Personal Item</h3>
+      <h2>Personal Item</h2>
       {personalItem ? (
         <p>
           {convertDimension(personalItem.length, unitSystem)}
@@ -28,7 +28,7 @@ export default function MyBags({
         />
       )}
 
-      <h3>Cabin Bag</h3>
+      <h2>Cabin Bag</h2>
       {cabinBag ? (
         <p>
           {convertDimension(cabinBag.length, unitSystem)}

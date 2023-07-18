@@ -16,7 +16,6 @@ export default function Sort({ handleSortOptionChange }) {
       <button onClick={() => handleSortOptionChange("combined")}>
         Combined volume
       </button>
-      <hr />
     </div>
   );
 }

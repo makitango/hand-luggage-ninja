@@ -32,17 +32,19 @@ export default function HomePage({
   }
 
   return (
-    <div>
+    <div style={{ border: "1px solid black", padding: 10 }}>
       <h1>Hand luggage ninja</h1>
       <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
       <hr />
       <Sort handleSortOptionChange={handleSortOptionChange} />
+      <hr />
       <MyBags
         personalItem={personalItem}
         cabinBag={cabinBag}
         unitSystem={unitSystem}
         handleFormSave={handleFormSave}
       />
+      <hr />
       <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );

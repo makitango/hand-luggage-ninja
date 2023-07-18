@@ -5,7 +5,7 @@ export default function AirlineList({ airlines, unitSystem }) {
     <>
       {airlines.map(({ id, name, personalItem, cabinBag, freeCabinBag }) => {
         return (
-          <div key={id} style={{ border: "1px solid black", padding: 10 }}>
+          <div key={id}>
             <h2>{name}</h2>
             <section>
               <p>
