@@ -1,5 +1,5 @@
 export function convertDimension(value, unitSystem) {
-  return Math.round(unitSystem === "metric" ? value : value * 0.393701);
+  return Math.round(unitSystem === "metric" ? value : value / 2.54);
 }
 
 export function calculateVolume({ length, width, height }) {

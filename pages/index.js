@@ -13,9 +13,19 @@ export default function HomePage({
   const { personalItem, cabinBag } = bags;
 
   function handleFormSave(type, dimensions) {
+    // Convert dimensions if necessary
+    const adjustedDimensions =
+      unitSystem === "imperial"
+        ? {
+            length: convertDimension(dimensions.length * 2.54, "metric"),
+            width: convertDimension(dimensions.width * 2.54, "metric"),
+            height: convertDimension(dimensions.height * 2.54, "metric"),
+          }
+        : dimensions;
+
     setBags((prevBags) => ({
       ...prevBags,
-      [type]: dimensions,
+      [type]: adjustedDimensions,
     }));
   }
 
@@ -58,7 +68,11 @@ export default function HomePage({
           {" | "} <strong>{calculateVolume(personalItem)} l</strong>
         </p>
       ) : (
-        <BagForm type="personalItem" handleFormSave={handleFormSave} />
+        <BagForm
+          type="personalItem"
+          handleFormSave={handleFormSave}
+          unitSystem={unitSystem}
+        />
       )}
 
       <h3>Cabin Bag</h3>
@@ -73,7 +87,11 @@ export default function HomePage({
           {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
         </p>
       ) : (
-        <BagForm type="cabinBag" handleFormSave={handleFormSave} />
+        <BagForm
+          type="cabinBag"
+          handleFormSave={handleFormSave}
+          unitSystem={unitSystem}
+        />
       )}
       {personalItem && cabinBag && (
         <p>
