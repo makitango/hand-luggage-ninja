@@ -2,7 +2,7 @@ import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
 import { calculateVolume } from "@/utils";
-import BagForm from "@/components/BagForm";
+import BagForm from "@/components/MyBags/BagForm";
 import AirlineList from "@/components/AirlineList";
 
 export default function App({ Component, pageProps }) {

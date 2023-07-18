@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
-import BagForm from "@/components/BagForm";
+import MyBags from "@/components/MyBags";
 import { calculateVolume, convertDimension } from "@/utils";
 
 export default function HomePage({
@@ -56,51 +56,12 @@ export default function HomePage({
         </button>
         <hr />
       </div>
-      <h3>Personal Item</h3>
-      {personalItem ? (
-        <p>
-          {convertDimension(personalItem.length, unitSystem)}
-          {" x "}
-          {convertDimension(personalItem.width, unitSystem)}
-          {" x "}
-          {convertDimension(personalItem.height, unitSystem)}
-          {unitSystem === "metric" ? " cm" : " in"}
-          {" | "} <strong>{calculateVolume(personalItem)} l</strong>
-        </p>
-      ) : (
-        <BagForm
-          type="personalItem"
-          handleFormSave={handleFormSave}
-          unitSystem={unitSystem}
-        />
-      )}
-
-      <h3>Cabin Bag</h3>
-      {cabinBag ? (
-        <p>
-          {convertDimension(cabinBag.length, unitSystem)}
-          {" x "}
-          {convertDimension(cabinBag.width, unitSystem)}
-          {" x "}
-          {convertDimension(cabinBag.height, unitSystem)}
-          {unitSystem === "metric" ? " cm" : " in"}
-          {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
-        </p>
-      ) : (
-        <BagForm
-          type="cabinBag"
-          handleFormSave={handleFormSave}
-          unitSystem={unitSystem}
-        />
-      )}
-      {personalItem && cabinBag && (
-        <p>
-          <strong>
-            Combined volume{" "}
-            {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
-          </strong>
-        </p>
-      )}
+      <MyBags
+        personalItem={personalItem}
+        cabinBag={cabinBag}
+        unitSystem={unitSystem}
+        handleFormSave={handleFormSave}
+      />
       <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );
