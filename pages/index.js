@@ -10,6 +10,7 @@ export default function HomePage({
   handleUnitSystemChange,
 }) {
   const [bags, setBags] = useState({});
+  const { personalItem, cabinBag } = bags;
 
   function handleFormSave(type, dimensions) {
     setBags((prevBags) => ({
@@ -46,40 +47,39 @@ export default function HomePage({
         <hr />
       </div>
       <h3>Personal Item</h3>
-      {bags.personalItem ? (
+      {personalItem ? (
         <p>
-          {convertDimension(bags.personalItem.length, unitSystem)}
+          {convertDimension(personalItem.length, unitSystem)}
           {" x "}
-          {convertDimension(bags.personalItem.width, unitSystem)}
+          {convertDimension(personalItem.width, unitSystem)}
           {" x "}
-          {convertDimension(bags.personalItem.height, unitSystem)}
+          {convertDimension(personalItem.height, unitSystem)}
           {unitSystem === "metric" ? " cm" : " in"}
-          {" | "} <strong>{calculateVolume(bags.personalItem)} l</strong>
+          {" | "} <strong>{calculateVolume(personalItem)} l</strong>
         </p>
       ) : (
         <BagForm type="personalItem" handleFormSave={handleFormSave} />
       )}
+
       <h3>Cabin Bag</h3>
-      {bags.cabinBag ? (
+      {cabinBag ? (
         <p>
-          {convertDimension(bags.cabinBag.length, unitSystem)}
+          {convertDimension(cabinBag.length, unitSystem)}
           {" x "}
-          {convertDimension(bags.cabinBag.width, unitSystem)}
+          {convertDimension(cabinBag.width, unitSystem)}
           {" x "}
-          {convertDimension(bags.cabinBag.height, unitSystem)}
+          {convertDimension(cabinBag.height, unitSystem)}
           {unitSystem === "metric" ? " cm" : " in"}
-          {" | "} <strong>{calculateVolume(bags.cabinBag)} l</strong>
+          {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
         </p>
       ) : (
         <BagForm type="cabinBag" handleFormSave={handleFormSave} />
       )}
-      {bags.personalItem && bags.cabinBag && (
+      {personalItem && cabinBag && (
         <p>
           <strong>
             Combined volume{" "}
-            {calculateVolume(bags.personalItem) +
-              calculateVolume(bags.cabinBag)}{" "}
-            l
+            {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
           </strong>
         </p>
       )}
