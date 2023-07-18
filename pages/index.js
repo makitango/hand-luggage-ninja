@@ -1,13 +1,14 @@
 import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
 import MyBags from "@/components/MyBags";
+import Sort from "@/components/Sort";
 import { calculateVolume, convertDimension } from "@/utils";
 
 export default function HomePage({
-  handleSortOptionChange,
   airlines,
   unitSystem,
   handleUnitSystemChange,
+  handleSortOptionChange, // Add the missing prop
 }) {
   const [bags, setBags] = useState({});
   const { personalItem, cabinBag } = bags;
@@ -40,22 +41,8 @@ export default function HomePage({
         Imperial
       </button>
       <hr />
-      <div>
-        <strong>Sort </strong>
-        <button onClick={() => handleSortOptionChange("alphabetical")}>
-          Alphabetical
-        </button>
-        <button onClick={() => handleSortOptionChange("personalItem")}>
-          Personal item volume
-        </button>
-        <button onClick={() => handleSortOptionChange("cabinBag")}>
-          Cabin bag volume
-        </button>
-        <button onClick={() => handleSortOptionChange("combined")}>
-          Combined volume
-        </button>
-        <hr />
-      </div>
+      <Sort handleSortOptionChange={handleSortOptionChange} />{" "}
+      {/* Pass the prop */}
       <MyBags
         personalItem={personalItem}
         cabinBag={cabinBag}
