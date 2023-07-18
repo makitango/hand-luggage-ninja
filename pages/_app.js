@@ -2,10 +2,13 @@ import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
 import { calculateVolume } from "@/utils";
+import BagForm from "@/components/BagForm";
+import AirlineList from "@/components/AirlineList";
 
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
   const [airlines, setAirlines] = useState(initialAirlines);
+  const [bags, setBags] = useState({});
 
   function handleUnitSystemChange(option) {
     setUnitSystem(option);
@@ -68,6 +71,16 @@ export default function App({ Component, pageProps }) {
     setAirlines(sortedAirlines);
   }
 
+  function handleFormSubmit(type, dimensions) {
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        ...dimensions,
+      },
+    }));
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -77,6 +90,8 @@ export default function App({ Component, pageProps }) {
         handleSortOptionChange={handleSortOptionChange}
         handleUnitSystemChange={handleUnitSystemChange}
         unitSystem={unitSystem}
+        bags={bags}
+        handleFormSubmit={handleFormSubmit}
       />
     </>
   );

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
+import BagForm from "@/components/BagForm";
 
 export default function HomePage({
   handleSortOptionChange,
@@ -6,6 +8,15 @@ export default function HomePage({
   unitSystem,
   handleUnitSystemChange,
 }) {
+  const [bags, setBags] = useState({});
+
+  function handleFormSave(type, dimensions) {
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: dimensions,
+    }));
+  }
+
   return (
     <div>
       <h1>Hand luggage ninja</h1>
@@ -33,7 +44,28 @@ export default function HomePage({
         </button>
         <hr />
       </div>
-      <AirlineList airlines={airlines} unitSystem={unitSystem} />
+
+      <h3>Personal Item</h3>
+      {bags.personalItem ? (
+        <p>
+          Length: {bags.personalItem.length}, Width: {bags.personalItem.width},{" "}
+          Height: {bags.personalItem.height}
+        </p>
+      ) : (
+        <BagForm type="personalItem" handleFormSave={handleFormSave} />
+      )}
+
+      <h3>Cabin Bag</h3>
+      {bags.cabinBag ? (
+        <p>
+          Length: {bags.cabinBag.length}, Width: {bags.cabinBag.width}, Height:{" "}
+          {bags.cabinBag.height}
+        </p>
+      ) : (
+        <BagForm type="cabinBag" handleFormSave={handleFormSave} />
+      )}
+
+      <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );
 }
