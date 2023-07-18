@@ -37,6 +37,8 @@ export default function BagForm({ type, handleFormSave }) {
     setFormVisible(true);
   };
 
+  const isSaveDisabled = length === "" || width === "" || height === "";
+
   return (
     <>
       {!isFormVisible && <button onClick={handleAdd}>Add</button>}
@@ -70,7 +72,9 @@ export default function BagForm({ type, handleFormSave }) {
               onChange={(e) => setHeight(e.target.value)}
             />
           </label>
-          <button type="submit">Save</button>
+          <button type="submit" disabled={isSaveDisabled}>
+            Save
+          </button>
           <button type="button" onClick={handleFormCancel}>
             Cancel
           </button>
