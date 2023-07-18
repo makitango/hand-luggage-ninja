@@ -3,5 +3,6 @@ export function convertDimension(value, unitSystem) {
 }
 
 export function calculateVolume({ length, width, height }) {
-  return Math.round((length * width * height) / 1000);
+  const volume = length * width * height;
+  return Math.round(volume / 1000);
 }

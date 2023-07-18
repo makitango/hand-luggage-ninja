@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
 import BagForm from "@/components/BagForm";
+import { calculateVolume, convertDimension } from "@/utils";
 
 export default function HomePage({
   handleSortOptionChange,
@@ -44,27 +45,44 @@ export default function HomePage({
         </button>
         <hr />
       </div>
-
       <h3>Personal Item</h3>
       {bags.personalItem ? (
         <p>
-          Length: {bags.personalItem.length}, Width: {bags.personalItem.width},{" "}
-          Height: {bags.personalItem.height}
+          {convertDimension(bags.personalItem.length, unitSystem)}
+          {" x "}
+          {convertDimension(bags.personalItem.width, unitSystem)}
+          {" x "}
+          {convertDimension(bags.personalItem.height, unitSystem)}
+          {unitSystem === "metric" ? " cm" : " in"}
+          {" | "} <strong>{calculateVolume(bags.personalItem)} l</strong>
         </p>
       ) : (
         <BagForm type="personalItem" handleFormSave={handleFormSave} />
       )}
-
       <h3>Cabin Bag</h3>
       {bags.cabinBag ? (
         <p>
-          Length: {bags.cabinBag.length}, Width: {bags.cabinBag.width}, Height:{" "}
-          {bags.cabinBag.height}
+          {convertDimension(bags.cabinBag.length, unitSystem)}
+          {" x "}
+          {convertDimension(bags.cabinBag.width, unitSystem)}
+          {" x "}
+          {convertDimension(bags.cabinBag.height, unitSystem)}
+          {unitSystem === "metric" ? " cm" : " in"}
+          {" | "} <strong>{calculateVolume(bags.cabinBag)} l</strong>
         </p>
       ) : (
         <BagForm type="cabinBag" handleFormSave={handleFormSave} />
       )}
-
+      {bags.personalItem && bags.cabinBag && (
+        <p>
+          <strong>
+            Combined volume{" "}
+            {calculateVolume(bags.personalItem) +
+              calculateVolume(bags.cabinBag)}{" "}
+            l
+          </strong>
+        </p>
+      )}
       <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );
