@@ -22,6 +22,9 @@ export default function BagForm({ type, handleFormSave, handleFormCancel }) {
     setHeight("");
   };
 
+  const isFormValid = length !== "" && width !== "" && height !== "";
+  const isNegativeNumber = length < 0 || width < 0 || height < 0;
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -29,6 +32,7 @@ export default function BagForm({ type, handleFormSave, handleFormCancel }) {
         <input
           type="number"
           value={length}
+          min="0"
           onChange={(e) => setLength(e.target.value)}
         />
       </label>
@@ -37,6 +41,7 @@ export default function BagForm({ type, handleFormSave, handleFormCancel }) {
         <input
           type="number"
           value={width}
+          min="0"
           onChange={(e) => setWidth(e.target.value)}
         />
       </label>
@@ -45,10 +50,16 @@ export default function BagForm({ type, handleFormSave, handleFormCancel }) {
         <input
           type="number"
           value={height}
+          min="0"
           onChange={(e) => setHeight(e.target.value)}
         />
       </label>
-      <button type="submit">Save</button>
+      {isNegativeNumber && (
+        <p>Please enter positive values for all dimensions.</p>
+      )}
+      <button type="submit" disabled={!isFormValid || isNegativeNumber}>
+        Save
+      </button>
       <button type="button" onClick={handleFormCancel}>
         Cancel
       </button>
