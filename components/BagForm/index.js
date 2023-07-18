@@ -1,9 +1,17 @@
 import { useState } from "react";
 
-export default function BagForm({ type, handleFormSave, handleFormCancel }) {
+export default function BagForm({ type, handleFormSave }) {
+  const [isFormVisible, setFormVisible] = useState(false);
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
+
+  const handleFormCancel = () => {
+    setFormVisible(false);
+    setLength("");
+    setWidth("");
+    setHeight("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,49 +28,54 @@ export default function BagForm({ type, handleFormSave, handleFormCancel }) {
     setLength("");
     setWidth("");
     setHeight("");
+
+    // Hide the form
+    setFormVisible(false);
   };
 
-  const isFormValid = length !== "" && width !== "" && height !== "";
-  const isNegativeNumber = length < 0 || width < 0 || height < 0;
+  const handleAdd = () => {
+    setFormVisible(true);
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Length:
-        <input
-          type="number"
-          value={length}
-          min="0"
-          onChange={(e) => setLength(e.target.value)}
-        />
-      </label>
-      <label>
-        Width:
-        <input
-          type="number"
-          value={width}
-          min="0"
-          onChange={(e) => setWidth(e.target.value)}
-        />
-      </label>
-      <label>
-        Height:
-        <input
-          type="number"
-          value={height}
-          min="0"
-          onChange={(e) => setHeight(e.target.value)}
-        />
-      </label>
-      {isNegativeNumber && (
-        <p>Please enter positive values for all dimensions.</p>
+    <>
+      {!isFormVisible && <button onClick={handleAdd}>Add</button>}
+
+      {isFormVisible && (
+        <form onSubmit={handleSubmit}>
+          <label>
+            Length:
+            <input
+              type="number"
+              value={length}
+              min="0"
+              onChange={(e) => setLength(e.target.value)}
+            />
+          </label>
+          <label>
+            Width:
+            <input
+              type="number"
+              value={width}
+              min="0"
+              onChange={(e) => setWidth(e.target.value)}
+            />
+          </label>
+          <label>
+            Height:
+            <input
+              type="number"
+              value={height}
+              min="0"
+              onChange={(e) => setHeight(e.target.value)}
+            />
+          </label>
+          <button type="submit">Save</button>
+          <button type="button" onClick={handleFormCancel}>
+            Cancel
+          </button>
+        </form>
       )}
-      <button type="submit" disabled={!isFormValid || isNegativeNumber}>
-        Save
-      </button>
-      <button type="button" onClick={handleFormCancel}>
-        Cancel
-      </button>
-    </form>
+    </>
   );
 }
