@@ -1,6 +1,6 @@
 import { calculateVolume, convertDimension } from "@/utils";
 
-export default function AirlineList({ airlines, unitSystem }) {
+export default function AirlineList({ airlines, unitSystem, bags }) {
   return (
     <>
       {airlines.map(({ id, name, personalItem, cabinBag, freeCabinBag }) => {

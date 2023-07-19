@@ -2,8 +2,6 @@ import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
 import { calculateVolume } from "@/utils";
-import MyBags from "@/components/MyBags";
-import AirlineList from "@/components/AirlineList";
 
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
@@ -13,10 +11,8 @@ export default function App({ Component, pageProps }) {
   function handleUnitSystemChange(option) {
     setUnitSystem(option);
   }
-
   function handleSortOptionChange(option) {
     const sortedAirlines = [...airlines];
-
     if (option === "alphabetical") {
       sortedAirlines.sort((a, b) => a.name.localeCompare(b.name));
     } else if (option === "personalItem") {
@@ -70,7 +66,6 @@ export default function App({ Component, pageProps }) {
 
     setAirlines(sortedAirlines);
   }
-
   function handleFormSubmit(type, dimensions) {
     setBags((prevBags) => ({
       ...prevBags,

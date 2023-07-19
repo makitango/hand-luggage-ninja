@@ -2,32 +2,26 @@ import { useState } from "react";
 
 export default function BagForm({ type, handleFormSave }) {
   const [isFormVisible, setFormVisible] = useState(false);
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
+  const [bags, setBags] = useState({ [type]: {} });
 
   const handleFormCancel = () => {
     setFormVisible(false);
-    setLength("");
-    setWidth("");
-    setHeight("");
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {},
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const dimensions = {
-      length: Number(length),
-      width: Number(width),
-      height: Number(height),
-    };
-
-    handleFormSave(type, dimensions);
+    handleFormSave(type, bags[type]);
 
     // Reset form fields
-    setLength("");
-    setWidth("");
-    setHeight("");
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {},
+    }));
 
     // Hide the form
     setFormVisible(false);
@@ -37,7 +31,22 @@ export default function BagForm({ type, handleFormSave }) {
     setFormVisible(true);
   };
 
-  const isSaveDisabled = length === "" || width === "" || height === "";
+  const handleInputChange = (e, dimension) => {
+    const value = e.target.value;
+
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        [dimension]: Number(value),
+      },
+    }));
+  };
+
+  const isSaveDisabled =
+    bags[type].length === undefined ||
+    bags[type].width === undefined ||
+    bags[type].height === undefined;
 
   return (
     <>
@@ -49,27 +58,27 @@ export default function BagForm({ type, handleFormSave }) {
             Length:
             <input
               type="number"
-              value={length}
+              value={bags[type].length || ""}
               min="0"
-              onChange={(e) => setLength(e.target.value)}
+              onChange={(e) => handleInputChange(e, "length")}
             />
           </label>
           <label>
             Width:
             <input
               type="number"
-              value={width}
+              value={bags[type].width || ""}
               min="0"
-              onChange={(e) => setWidth(e.target.value)}
+              onChange={(e) => handleInputChange(e, "width")}
             />
           </label>
           <label>
             Height:
             <input
               type="number"
-              value={height}
+              value={bags[type].height || ""}
               min="0"
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={(e) => handleInputChange(e, "height")}
             />
           </label>
           <button type="submit" disabled={isSaveDisabled}>

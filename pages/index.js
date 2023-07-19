@@ -3,7 +3,7 @@ import AirlineList from "@/components/AirlineList";
 import MyBags from "@/components/MyBags";
 import Sort from "@/components/Sort";
 import UnitSystem from "@/components/UnitSystem";
-import { calculateVolume, convertDimension } from "@/utils";
+import { convertDimension } from "@/utils";
 
 export default function HomePage({
   airlines,
@@ -15,7 +15,6 @@ export default function HomePage({
   const { personalItem, cabinBag } = bags;
 
   function handleFormSave(type, dimensions) {
-    // Convert dimensions if necessary
     const adjustedDimensions =
       unitSystem === "imperial"
         ? {
@@ -29,9 +28,7 @@ export default function HomePage({
       ...prevBags,
       [type]: adjustedDimensions,
     }));
-    console.log(bags);
   }
-
   return (
     <div style={{ border: "1px solid black", padding: 10 }}>
       <h1>Hand luggage ninja</h1>
