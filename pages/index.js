@@ -29,6 +29,7 @@ export default function HomePage({
       ...prevBags,
       [type]: adjustedDimensions,
     }));
+    console.log(bags);
   }
 
   return (
