@@ -17,13 +17,11 @@ export default function BagForm({ type, handleFormSave }) {
 
     handleFormSave(type, bags[type]);
 
-    // Reset form fields
     setBags((prevBags) => ({
       ...prevBags,
       [type]: {},
     }));
 
-    // Hide the form
     setFormVisible(false);
   };
 
