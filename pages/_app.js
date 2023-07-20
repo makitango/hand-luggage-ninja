@@ -6,14 +6,13 @@ import { calculateVolume } from "@/utils";
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
   const [airlines, setAirlines] = useState(initialAirlines);
+  const [bags, setBags] = useState({});
 
   function handleUnitSystemChange(option) {
     setUnitSystem(option);
   }
-
   function handleSortOptionChange(option) {
     const sortedAirlines = [...airlines];
-
     if (option === "alphabetical") {
       sortedAirlines.sort((a, b) => a.name.localeCompare(b.name));
     } else if (option === "personalItem") {
@@ -67,6 +66,15 @@ export default function App({ Component, pageProps }) {
 
     setAirlines(sortedAirlines);
   }
+  function handleFormSubmit(type, dimensions) {
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        ...dimensions,
+      },
+    }));
+  }
 
   return (
     <>
@@ -77,6 +85,8 @@ export default function App({ Component, pageProps }) {
         handleSortOptionChange={handleSortOptionChange}
         handleUnitSystemChange={handleUnitSystemChange}
         unitSystem={unitSystem}
+        bags={bags}
+        handleFormSubmit={handleFormSubmit}
       />
     </>
   );

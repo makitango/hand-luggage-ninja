@@ -1,39 +1,49 @@
+import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
+import MyBags from "@/components/MyBags";
+import Sort from "@/components/Sort";
+import UnitSystem from "@/components/UnitSystem";
+import { convertDimension } from "@/utils";
 
 export default function HomePage({
-  handleSortOptionChange,
   airlines,
   unitSystem,
   handleUnitSystemChange,
+  handleSortOptionChange,
 }) {
+  const [bags, setBags] = useState({});
+  const { personalItem, cabinBag } = bags;
+
+  function handleFormSave(type, dimensions) {
+    const adjustedDimensions =
+      unitSystem === "imperial"
+        ? {
+            length: convertDimension(dimensions.length * 2.54, "metric"),
+            width: convertDimension(dimensions.width * 2.54, "metric"),
+            height: convertDimension(dimensions.height * 2.54, "metric"),
+          }
+        : dimensions;
+
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: adjustedDimensions,
+    }));
+  }
   return (
-    <div>
+    <div style={{ border: "1px solid black", padding: 10 }}>
       <h1>Hand luggage ninja</h1>
-      <strong>Select unit system </strong>
-      <button type="button" onClick={() => handleUnitSystemChange("metric")}>
-        Metric
-      </button>
-      <button type="button" onClick={() => handleUnitSystemChange("imperial")}>
-        Imperial
-      </button>
+      <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
       <hr />
-      <div>
-        <strong>Sort </strong>
-        <button onClick={() => handleSortOptionChange("alphabetical")}>
-          Alphabetical
-        </button>
-        <button onClick={() => handleSortOptionChange("personalItem")}>
-          Personal item volume
-        </button>
-        <button onClick={() => handleSortOptionChange("cabinBag")}>
-          Cabin bag volume
-        </button>
-        <button onClick={() => handleSortOptionChange("combined")}>
-          Combined volume
-        </button>
-        <hr />
-      </div>
-      <AirlineList airlines={airlines} unitSystem={unitSystem} />
+      <Sort handleSortOptionChange={handleSortOptionChange} />
+      <hr />
+      <MyBags
+        personalItem={personalItem}
+        cabinBag={cabinBag}
+        unitSystem={unitSystem}
+        handleFormSave={handleFormSave}
+      />
+      <hr />
+      <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );
 }
