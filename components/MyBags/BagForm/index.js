@@ -1,27 +1,27 @@
 import { useState } from "react";
 
-export default function BagForm({ type, handleFormSave }) {
+export default function BagForm({
+  type,
+  handleFormSave,
+  unitSystem,
+  initialValues,
+  onCancel,
+}) {
   const [isFormVisible, setFormVisible] = useState(false);
-  const [bags, setBags] = useState({ [type]: {} });
+  const [bags, setBags] = useState(initialValues || {});
 
   const handleFormCancel = () => {
     setFormVisible(false);
-    setBags((prevBags) => ({
-      ...prevBags,
-      [type]: {},
-    }));
+    setBags({});
+    onCancel && onCancel();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    handleFormSave(type, bags[type]);
+    handleFormSave(type, bags);
 
-    setBags((prevBags) => ({
-      ...prevBags,
-      [type]: {},
-    }));
-
+    setBags({});
     setFormVisible(false);
   };
 
@@ -34,17 +34,14 @@ export default function BagForm({ type, handleFormSave }) {
 
     setBags((prevBags) => ({
       ...prevBags,
-      [type]: {
-        ...prevBags[type],
-        [dimension]: Number(value),
-      },
+      [dimension]: Number(value),
     }));
   };
 
   const isSaveDisabled =
-    bags[type].length === undefined ||
-    bags[type].width === undefined ||
-    bags[type].height === undefined;
+    bags.length === undefined ||
+    bags.width === undefined ||
+    bags.height === undefined;
 
   return (
     <>
@@ -56,7 +53,7 @@ export default function BagForm({ type, handleFormSave }) {
             Length:
             <input
               type="number"
-              value={bags[type].length || ""}
+              value={bags.length || ""}
               min="0"
               onChange={(e) => handleInputChange(e, "length")}
             />
@@ -65,7 +62,7 @@ export default function BagForm({ type, handleFormSave }) {
             Width:
             <input
               type="number"
-              value={bags[type].width || ""}
+              value={bags.width || ""}
               min="0"
               onChange={(e) => handleInputChange(e, "width")}
             />
@@ -74,7 +71,7 @@ export default function BagForm({ type, handleFormSave }) {
             Height:
             <input
               type="number"
-              value={bags[type].height || ""}
+              value={bags.height || ""}
               min="0"
               onChange={(e) => handleInputChange(e, "height")}
             />
