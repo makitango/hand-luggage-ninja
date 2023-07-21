@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { calculateVolume, convertDimension } from "@/utils";
 
 export default function BagForm({
   type,
@@ -7,26 +8,12 @@ export default function BagForm({
   initialValues,
   onCancel,
 }) {
-  const [isFormVisible, setFormVisible] = useState(false);
   const [bags, setBags] = useState(initialValues || {});
-
-  const handleFormCancel = () => {
-    setFormVisible(false);
-    setBags({});
-    onCancel && onCancel();
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     handleFormSave(type, bags);
-
-    setBags({});
-    setFormVisible(false);
-  };
-
-  const handleAdd = () => {
-    setFormVisible(true);
+    onCancel && onCancel();
   };
 
   const handleInputChange = (e, dimension) => {
@@ -45,9 +32,15 @@ export default function BagForm({
 
   return (
     <>
-      {!isFormVisible && <button onClick={handleAdd}>Add</button>}
-
-      {isFormVisible && (
+      {bags.length === undefined &&
+      bags.width === undefined &&
+      bags.height === undefined ? (
+        <button
+          onClick={() => handleInputChange({ target: { value: "" } }, "length")}
+        >
+          Add
+        </button>
+      ) : (
         <form onSubmit={handleSubmit}>
           <label>
             Length:
@@ -79,7 +72,7 @@ export default function BagForm({
           <button type="submit" disabled={isSaveDisabled}>
             Save
           </button>
-          <button type="button" onClick={handleFormCancel}>
+          <button type="button" onClick={() => onCancel()}>
             Cancel
           </button>
         </form>
