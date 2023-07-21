@@ -8,22 +8,20 @@ export default function MyBags({
   unitSystem,
   handleFormSave,
 }) {
-  const [isPersonalItemEditVisible, setPersonalItemEditVisible] =
-    useState(false);
-  const [isCabinBagEditVisible, setCabinBagEditVisible] = useState(false);
+  const [editType, setEditType] = useState(null);
 
-  const handlePersonalItemEdit = () => {
-    setPersonalItemEditVisible(true);
+  const handleEdit = (type) => {
+    setEditType(type);
   };
 
-  const handleCabinBagEdit = () => {
-    setCabinBagEditVisible(true);
+  const handleCancelEdit = () => {
+    setEditType(null);
   };
 
   return (
     <>
       <h2>Personal Item</h2>
-      {personalItem && !isPersonalItemEditVisible ? (
+      {personalItem && editType !== "personalItem" ? (
         <>
           <p>
             {convertDimension(personalItem.length, unitSystem)}
@@ -34,7 +32,7 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(personalItem)} l</strong>
           </p>
-          <button onClick={handlePersonalItemEdit}>Edit</button>
+          <button onClick={() => handleEdit("personalItem")}>Edit</button>
         </>
       ) : (
         <BagForm
@@ -42,12 +40,12 @@ export default function MyBags({
           handleFormSave={handleFormSave}
           unitSystem={unitSystem}
           initialValues={personalItem}
-          onCancel={() => setPersonalItemEditVisible(false)}
+          onCancel={handleCancelEdit}
         />
       )}
 
       <h2>Cabin Bag</h2>
-      {cabinBag && !isCabinBagEditVisible ? (
+      {cabinBag && editType !== "cabinBag" ? (
         <>
           <p>
             {convertDimension(cabinBag.length, unitSystem)}
@@ -58,7 +56,7 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
           </p>
-          <button onClick={handleCabinBagEdit}>Edit</button>
+          <button onClick={() => handleEdit("cabinBag")}>Edit</button>
         </>
       ) : (
         <BagForm
@@ -66,7 +64,7 @@ export default function MyBags({
           handleFormSave={handleFormSave}
           unitSystem={unitSystem}
           initialValues={cabinBag}
-          onCancel={() => setCabinBagEditVisible(false)}
+          onCancel={handleCancelEdit}
         />
       )}
 
