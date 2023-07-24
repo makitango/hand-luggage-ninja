@@ -18,6 +18,11 @@ export default function MyBags({
     setEditType(null);
   };
 
+  const handleBagDelete = (type) => {
+    handleFormSave(type, null); // Pass null dimensions to indicate deletion
+    setEditType(null); // Clear the editType after deletion
+  };
+
   return (
     <>
       <h2>Personal Item</h2>
@@ -33,6 +38,9 @@ export default function MyBags({
             {" | "} <strong>{calculateVolume(personalItem)} l</strong>
           </p>
           <button onClick={() => handleEdit("personalItem")}>Edit</button>
+          <button onClick={() => handleBagDelete("personalItem")}>
+            Delete
+          </button>
         </>
       ) : (
         <BagForm
@@ -57,6 +65,7 @@ export default function MyBags({
             {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
           </p>
           <button onClick={() => handleEdit("cabinBag")}>Edit</button>
+          <button onClick={() => handleBagDelete("cabinBag")}>Delete</button>
         </>
       ) : (
         <BagForm
