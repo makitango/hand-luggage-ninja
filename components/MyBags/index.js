@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { calculateVolume, convertDimension } from "@/utils";
 import BagForm from "./BagForm";
 
@@ -9,6 +9,7 @@ export default function MyBags({
   handleFormSave,
 }) {
   const [editType, setEditType] = useState(null);
+  const [deletedBagType, setDeletedBagType] = useState(null);
 
   const handleEdit = (type) => {
     setEditType(type);
@@ -19,8 +20,15 @@ export default function MyBags({
   };
 
   const handleBagDelete = (type) => {
-    handleFormSave(type, null);
-    setEditType(null);
+    setDeletedBagType(type);
+    setTimeout(() => {
+      handleFormSave(type, null); // Pass null dimensions to indicate deletion
+      setDeletedBagType(null);
+    }, 10000);
+  };
+
+  const handleUndoDelete = () => {
+    setDeletedBagType(null);
   };
 
   return (
@@ -37,10 +45,18 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(personalItem)} l</strong>
           </p>
-          <button onClick={() => handleEdit("personalItem")}>Edit</button>
-          <button onClick={() => handleBagDelete("personalItem")}>
-            Delete
-          </button>
+          {deletedBagType === "personalItem" ? (
+            <>
+              <button onClick={handleUndoDelete}>Undo delete?</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => handleEdit("personalItem")}>Edit</button>
+              <button onClick={() => handleBagDelete("personalItem")}>
+                Delete
+              </button>
+            </>
+          )}
         </>
       ) : (
         <BagForm
@@ -64,8 +80,18 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
           </p>
-          <button onClick={() => handleEdit("cabinBag")}>Edit</button>
-          <button onClick={() => handleBagDelete("cabinBag")}>Delete</button>
+          {deletedBagType === "cabinBag" ? (
+            <>
+              <button onClick={handleUndoDelete}>Undo delete?</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => handleEdit("cabinBag")}>Edit</button>
+              <button onClick={() => handleBagDelete("cabinBag")}>
+                Delete
+              </button>
+            </>
+          )}
         </>
       ) : (
         <BagForm
