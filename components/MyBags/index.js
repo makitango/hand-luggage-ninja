@@ -11,12 +11,10 @@ export default function MyBags({
   const [editType, setEditType] = useState(null);
   const [bags, setBags] = useState({
     personalItem: {
-      bag: personalItem,
       deleted: false,
       remainingSeconds: 0,
     },
     cabinBag: {
-      bag: cabinBag,
       deleted: false,
       remainingSeconds: 0,
     },
@@ -177,7 +175,8 @@ export default function MyBags({
             {" x "}
             {convertDimension(cabinBag.height, unitSystem)}
             {unitSystem === "metric" ? " cm" : " in"}
-            {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
+            {" | "}
+            <strong>{calculateVolume(cabinBag)} l</strong>
           </p>
           {bags.cabinBag.deleted ? (
             <button onClick={() => handleUndoDelete("cabinBag")}>
