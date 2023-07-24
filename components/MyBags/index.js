@@ -10,6 +10,7 @@ export default function MyBags({
 }) {
   const [editType, setEditType] = useState(null);
   const [deletedBagType, setDeletedBagType] = useState(null);
+  const [remainingSeconds, setRemainingSeconds] = useState(0);
 
   const handleEdit = (type) => {
     setEditType(type);
@@ -21,15 +22,29 @@ export default function MyBags({
 
   const handleBagDelete = (type) => {
     setDeletedBagType(type);
-    setTimeout(() => {
-      handleFormSave(type, null); // Pass null dimensions to indicate deletion
-      setDeletedBagType(null);
-    }, 10000);
+    setRemainingSeconds(10);
   };
 
   const handleUndoDelete = () => {
     setDeletedBagType(null);
+    setRemainingSeconds(0);
   };
+
+  useEffect(() => {
+    let timer;
+    if (remainingSeconds > 0) {
+      timer = setInterval(() => {
+        setRemainingSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    } else {
+      clearInterval(timer);
+      if (deletedBagType) {
+        handleFormSave(deletedBagType, null);
+        setDeletedBagType(null);
+      }
+    }
+    return () => clearInterval(timer);
+  }, [remainingSeconds, deletedBagType, handleFormSave]);
 
   return (
     <>
@@ -47,7 +62,9 @@ export default function MyBags({
           </p>
           {deletedBagType === "personalItem" ? (
             <>
-              <button onClick={handleUndoDelete}>Undo delete?</button>
+              <button onClick={handleUndoDelete}>
+                Undo delete? ({remainingSeconds})
+              </button>
             </>
           ) : (
             <>
@@ -82,7 +99,9 @@ export default function MyBags({
           </p>
           {deletedBagType === "cabinBag" ? (
             <>
-              <button onClick={handleUndoDelete}>Undo delete?</button>
+              <button onClick={handleUndoDelete}>
+                Undo delete? ({remainingSeconds})
+              </button>
             </>
           ) : (
             <>
