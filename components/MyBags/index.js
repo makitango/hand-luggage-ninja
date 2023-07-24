@@ -111,7 +111,7 @@ export default function MyBags({
       [type]: {
         ...prevBags[type],
         deleted: true,
-        remainingSeconds: 10,
+        remainingSeconds: 5,
       },
     }));
     setEditType(null);
