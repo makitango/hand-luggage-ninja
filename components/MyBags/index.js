@@ -9,8 +9,95 @@ export default function MyBags({
   handleFormSave,
 }) {
   const [editType, setEditType] = useState(null);
-  const [deletedBagType, setDeletedBagType] = useState(null);
-  const [remainingSeconds, setRemainingSeconds] = useState(0);
+  const [bags, setBags] = useState({
+    personalItem: {
+      bag: personalItem,
+      deleted: false,
+      remainingSeconds: 0,
+    },
+    cabinBag: {
+      bag: cabinBag,
+      deleted: false,
+      remainingSeconds: 0,
+    },
+  });
+
+  useEffect(() => {
+    let timerPersonal;
+    let timerCabin;
+
+    if (bags.personalItem.deleted && bags.personalItem.remainingSeconds > 0) {
+      timerPersonal = setInterval(() => {
+        setBags((prevBags) => ({
+          ...prevBags,
+          personalItem: {
+            ...prevBags.personalItem,
+            remainingSeconds: prevBags.personalItem.remainingSeconds - 1,
+          },
+        }));
+      }, 1000);
+    } else if (
+      bags.personalItem.deleted &&
+      bags.personalItem.remainingSeconds === 0
+    ) {
+      if (bags.personalItem.undoDelete) {
+        setBags((prevBags) => ({
+          ...prevBags,
+          personalItem: {
+            ...prevBags.personalItem,
+            deleted: false,
+            undoDelete: false,
+          },
+        }));
+      } else {
+        handleFormSave("personalItem", null);
+        setBags((prevBags) => ({
+          ...prevBags,
+          personalItem: {
+            ...prevBags.personalItem,
+            deleted: false,
+          },
+        }));
+      }
+    }
+
+    if (bags.cabinBag.deleted && bags.cabinBag.remainingSeconds > 0) {
+      timerCabin = setInterval(() => {
+        setBags((prevBags) => ({
+          ...prevBags,
+          cabinBag: {
+            ...prevBags.cabinBag,
+            remainingSeconds: prevBags.cabinBag.remainingSeconds - 1,
+          },
+        }));
+      }, 1000);
+    } else if (bags.cabinBag.deleted && bags.cabinBag.remainingSeconds === 0) {
+      if (bags.cabinBag.undoDelete) {
+        setBags((prevBags) => ({
+          ...prevBags,
+          cabinBag: {
+            ...prevBags.cabinBag,
+            deleted: false,
+            undoDelete: false,
+          },
+        }));
+      } else {
+        handleFormSave("cabinBag", null);
+        setBags((prevBags) => ({
+          ...prevBags,
+          cabinBag: {
+            ...prevBags.cabinBag,
+            deleted: false,
+          },
+        }));
+      }
+    }
+
+    return () => {
+      clearInterval(timerPersonal);
+      clearInterval(timerCabin);
+    };
+  }, [bags, handleFormSave]);
 
   const handleEdit = (type) => {
     setEditType(type);
@@ -21,30 +108,27 @@ export default function MyBags({
   };
 
   const handleBagDelete = (type) => {
-    setDeletedBagType(type);
-    setRemainingSeconds(10);
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        deleted: true,
+        remainingSeconds: 10,
+      },
+    }));
+    setEditType(null);
   };
 
-  const handleUndoDelete = () => {
-    setDeletedBagType(null);
-    setRemainingSeconds(0);
+  const handleUndoDelete = (type) => {
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        undoDelete: true,
+        remainingSeconds: 0,
+      },
+    }));
   };
-
-  useEffect(() => {
-    let timer;
-    if (remainingSeconds > 0) {
-      timer = setInterval(() => {
-        setRemainingSeconds((prevSeconds) => prevSeconds - 1);
-      }, 1000);
-    } else {
-      clearInterval(timer);
-      if (deletedBagType) {
-        handleFormSave(deletedBagType, null);
-        setDeletedBagType(null);
-      }
-    }
-    return () => clearInterval(timer);
-  }, [remainingSeconds, deletedBagType, handleFormSave]);
 
   return (
     <>
@@ -60,12 +144,10 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(personalItem)} l</strong>
           </p>
-          {deletedBagType === "personalItem" ? (
-            <>
-              <button onClick={handleUndoDelete}>
-                Undo delete? ({remainingSeconds})
-              </button>
-            </>
+          {bags.personalItem.deleted ? (
+            <button onClick={() => handleUndoDelete("personalItem")}>
+              Undo delete? ({bags.personalItem.remainingSeconds})
+            </button>
           ) : (
             <>
               <button onClick={() => handleEdit("personalItem")}>Edit</button>
@@ -97,12 +179,10 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(cabinBag)} l</strong>
           </p>
-          {deletedBagType === "cabinBag" ? (
-            <>
-              <button onClick={handleUndoDelete}>
-                Undo delete? ({remainingSeconds})
-              </button>
-            </>
+          {bags.cabinBag.deleted ? (
+            <button onClick={() => handleUndoDelete("cabinBag")}>
+              Undo delete? ({bags.cabinBag.remainingSeconds})
+            </button>
           ) : (
             <>
               <button onClick={() => handleEdit("cabinBag")}>Edit</button>
