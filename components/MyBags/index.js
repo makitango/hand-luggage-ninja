@@ -19,8 +19,8 @@ export default function MyBags({
   };
 
   const handleBagDelete = (type) => {
-    handleFormSave(type, null); // Pass null dimensions to indicate deletion
-    setEditType(null); // Clear the editType after deletion
+    handleFormSave(type, null);
+    setEditType(null);
   };
 
   return (

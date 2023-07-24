@@ -16,14 +16,12 @@ export default function HomePage({
 
   function handleFormSave(type, dimensions) {
     if (dimensions === null) {
-      // If dimensions are null, it indicates a bag deletion
       setBags((prevBags) => {
         const newBags = { ...prevBags };
         delete newBags[type];
         return newBags;
       });
     } else {
-      // If dimensions are provided, it's a bag update or addition
       const adjustedDimensions =
         unitSystem === "imperial"
           ? {
