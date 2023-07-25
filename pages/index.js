@@ -40,12 +40,11 @@ export default function HomePage({
   }
   return (
     <div>
-      <H1>Hand luggage ninja</H1>
-      <hr />
+      <H1>Settings</H1>
       <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
-      <hr />
       <Sort handleSortOptionChange={handleSortOptionChange} />
       <hr />
+      <H1>My bags</H1>
       <MyBags
         personalItem={personalItem}
         cabinBag={cabinBag}
@@ -53,6 +52,7 @@ export default function HomePage({
         handleFormSave={handleFormSave}
       />
       <hr />
+      <H1>Airline list</H1>
       <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />
     </div>
   );

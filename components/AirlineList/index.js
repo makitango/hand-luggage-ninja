@@ -23,7 +23,9 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
           </GridContainer>
           <GridContainer>
             <Column1>
-              <strong>Cabin bag</strong>
+              <strong style={{ color: freeCabinBag ? "inherit" : "red" }}>
+                Cabin bag
+              </strong>{" "}
             </Column1>
             <Column2>
               {convertDimension(cabinBag.length, unitSystem)}
@@ -39,11 +41,6 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
             <strong>Combined volume</strong>
             {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
           </CombinedVolume>
-          {freeCabinBag ? (
-            ""
-          ) : (
-            <ExtraCost>💰 Cabin bag costs extra 💰</ExtraCost>
-          )}
         </Card>
       ))}
     </CardContainer>
@@ -80,26 +77,26 @@ const Column1 = styled.div`
   grid-column: 1;
   text-align: left;
   white-space: nowrap;
+  line-height: 2;
 `;
 
 const Column2 = styled.div`
   grid-column: 2;
   text-align: right;
   white-space: nowrap;
+  line-height: 2;
 `;
 
 const Column3 = styled.div`
   grid-column: 3;
   text-align: right;
   white-space: nowrap;
+  line-height: 2;
 `;
 
 const CombinedVolume = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: left;
-`;
-
-const ExtraCost = styled.p`
-  text-align: left;
+  line-height: 2;
 `;
