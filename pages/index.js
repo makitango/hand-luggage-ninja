@@ -15,19 +15,27 @@ export default function HomePage({
   const { personalItem, cabinBag } = bags;
 
   function handleFormSave(type, dimensions) {
-    const adjustedDimensions =
-      unitSystem === "imperial"
-        ? {
-            length: convertDimension(dimensions.length * 2.54, "metric"),
-            width: convertDimension(dimensions.width * 2.54, "metric"),
-            height: convertDimension(dimensions.height * 2.54, "metric"),
-          }
-        : dimensions;
+    if (dimensions === null) {
+      setBags((prevBags) => {
+        const newBags = { ...prevBags };
+        delete newBags[type];
+        return newBags;
+      });
+    } else {
+      const adjustedDimensions =
+        unitSystem === "imperial"
+          ? {
+              length: convertDimension(dimensions.length * 2.54, "metric"),
+              width: convertDimension(dimensions.width * 2.54, "metric"),
+              height: convertDimension(dimensions.height * 2.54, "metric"),
+            }
+          : dimensions;
 
-    setBags((prevBags) => ({
-      ...prevBags,
-      [type]: adjustedDimensions,
-    }));
+      setBags((prevBags) => ({
+        ...prevBags,
+        [type]: adjustedDimensions,
+      }));
+    }
   }
   return (
     <div style={{ border: "1px solid black", padding: 10 }}>
