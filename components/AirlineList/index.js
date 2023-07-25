@@ -48,10 +48,6 @@ export default function AirlineList({ airlines, unitSystem }) {
         const cabinBagVolume = calculateVolume(cabinBag);
         const combinedVolumeValue = personalItemVolume + cabinBagVolume;
 
-        const getDimensionColor = (dim, value, averageValue) => {
-          return { color: getColor(value, averageValue[dim]) };
-        };
-
         return (
           <Card key={id}>
             <Name>{name}</Name>
@@ -59,33 +55,36 @@ export default function AirlineList({ airlines, unitSystem }) {
               <Column1>Personal item</Column1>
               <Column2>
                 <span
-                  style={getDimensionColor(
-                    "length",
-                    personalItem.length,
-                    averagePersonalItem
-                  )}
+                  style={{
+                    color: getColor(
+                      personalItem.length,
+                      averagePersonalItem.length
+                    ),
+                  }}
                 >
                   {convertDimension(personalItem.length, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
-                  style={getDimensionColor(
-                    "width",
-                    personalItem.width,
-                    averagePersonalItem
-                  )}
+                  style={{
+                    color: getColor(
+                      personalItem.width,
+                      averagePersonalItem.width
+                    ),
+                  }}
                 >
                   {convertDimension(personalItem.width, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
-                  style={getDimensionColor(
-                    "height",
-                    personalItem.height,
-                    averagePersonalItem
-                  )}
+                  style={{
+                    color: getColor(
+                      personalItem.height,
+                      averagePersonalItem.height
+                    ),
+                  }}
                 >
                   {convertDimension(personalItem.height, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
@@ -108,33 +107,27 @@ export default function AirlineList({ airlines, unitSystem }) {
               </Column1>
               <Column2>
                 <span
-                  style={getDimensionColor(
-                    "length",
-                    cabinBag.length,
-                    averageCabinBag
-                  )}
+                  style={{
+                    color: getColor(cabinBag.length, averageCabinBag.length),
+                  }}
                 >
                   {convertDimension(cabinBag.length, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
-                  style={getDimensionColor(
-                    "width",
-                    cabinBag.width,
-                    averageCabinBag
-                  )}
+                  style={{
+                    color: getColor(cabinBag.width, averageCabinBag.width),
+                  }}
                 >
                   {convertDimension(cabinBag.width, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
-                  style={getDimensionColor(
-                    "height",
-                    cabinBag.height,
-                    averageCabinBag
-                  )}
+                  style={{
+                    color: getColor(cabinBag.height, averageCabinBag.height),
+                  }}
                 >
                   {convertDimension(cabinBag.height, unitSystem)}
                   {unitSystem === "metric" ? " cm" : " in"}
@@ -150,21 +143,14 @@ export default function AirlineList({ airlines, unitSystem }) {
             </GridContainer>
             <CombinedVolume>
               <CombinedVolumeLeft>Combined</CombinedVolumeLeft>
-              <CombinedVolumeRight
-                combinedVolumeValue={combinedVolumeValue}
-                averageCombinedVolume={
-                  averagePersonalItemVolume + averageCabinBagVolume
-                }
-              >
+              <CombinedVolumeRight>
                 <span
-                  style={getDimensionColor(
-                    "combinedVolumeValue",
-                    combinedVolumeValue,
-                    {
+                  style={{
+                    color: getColor(combinedVolumeValue, {
                       combinedVolumeValue:
                         averagePersonalItemVolume + averageCabinBagVolume,
-                    }
-                  )}
+                    }),
+                  }}
                 >
                   {combinedVolumeValue} l
                 </span>
