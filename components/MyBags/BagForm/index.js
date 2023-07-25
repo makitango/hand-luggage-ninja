@@ -133,7 +133,7 @@ const Button = styled.button`
   height: 50px;
   margin: 0;
   padding: 1em;
-  background-color: #6200ee;
+  background-color: ${({ disabled }) => (disabled ? "#d9d9d9" : "#6200ee")};
   color: #ffffff;
   border: none;
   border-bottom: 1px solid #dddddd;
@@ -143,11 +143,11 @@ const Button = styled.button`
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #3700b3;
+    background-color: ${({ disabled }) => (disabled ? "#d9d9d9" : "#3700b3")};
   }
 
   &:active {
-    background-color: #aa00ff;
+    background-color: ${({ disabled }) => (disabled ? "#d9d9d9" : "#aa00ff")};
   }
 
   &:first-child {
