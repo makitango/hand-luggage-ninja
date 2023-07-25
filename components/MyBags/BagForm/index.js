@@ -178,6 +178,9 @@ const Input = styled.input`
   box-sizing: border-box;
   outline: none;
 
+  inputmode: numeric;
+  pattern: "[0-9]*";
+
   &:focus {
     border-color: #3700b3;
   }
