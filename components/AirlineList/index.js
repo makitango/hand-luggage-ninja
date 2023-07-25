@@ -63,7 +63,6 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(personalItem.length, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
@@ -75,7 +74,6 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(personalItem.width, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
@@ -87,8 +85,8 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(personalItem.height, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
-                </span>
+                </span>{" "}
+                {unitSystem === "metric" ? " cm" : " in"}
               </Column2>
               <Column3
                 style={{
@@ -112,7 +110,6 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(cabinBag.length, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
@@ -121,7 +118,6 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(cabinBag.width, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
                 </span>
                 {" x "}
                 <span
@@ -130,8 +126,8 @@ export default function AirlineList({ airlines, unitSystem }) {
                   }}
                 >
                   {convertDimension(cabinBag.height, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
-                </span>
+                </span>{" "}
+                {unitSystem === "metric" ? " cm" : " in"}
               </Column2>
               <Column3
                 style={{
