@@ -1,23 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function Sort({ handleSortOptionChange }) {
+  const [activeSortOption, setActiveSortOption] = useState("alphabetical");
+
+  const handleButtonClick = (sortOption) => {
+    setActiveSortOption(sortOption);
+    handleSortOptionChange(sortOption);
+  };
+
   return (
     <div>
       <H4>
         <strong>Sort</strong>
       </H4>
       <ButtonContainer>
-        <Button onClick={() => handleSortOptionChange("alphabetical")}>
+        <Button
+          isActive={activeSortOption === "alphabetical"}
+          onClick={() => handleButtonClick("alphabetical")}
+        >
           Alphabetical
         </Button>
-        <Button onClick={() => handleSortOptionChange("personalItem")}>
+        <Button
+          isActive={activeSortOption === "personalItem"}
+          onClick={() => handleButtonClick("personalItem")}
+        >
           Personal item volume
         </Button>
-        <Button onClick={() => handleSortOptionChange("cabinBag")}>
+        <Button
+          isActive={activeSortOption === "cabinBag"}
+          onClick={() => handleButtonClick("cabinBag")}
+        >
           Cabin bag volume
         </Button>
-        <Button onClick={() => handleSortOptionChange("combined")}>
+        <Button
+          isActive={activeSortOption === "combined"}
+          onClick={() => handleButtonClick("combined")}
+          isLastChild
+        >
           Combined volume
         </Button>
       </ButtonContainer>
@@ -53,25 +73,22 @@ const Button = styled.button`
   height: 50px;
   margin: 0;
   padding: 1em;
-  background-color: #6200ee;
+  background-color: ${(props) => (props.isActive ? "#3700b3" : "#6200ee")};
   color: #ffffff;
   border: none;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
-  border-radius: 0; /* Remove rounded corners from all sides */
+  border-radius: 0;
   border-bottom: ${(props) =>
     props.isLastChild ? "none" : "1px solid #dddddd"};
-  margin-bottom: ${(props) =>
-    props.isLastChild
-      ? "0"
-      : "-1px"}; /* Negative margin-bottom to remove the line between buttons */
+  margin-bottom: ${(props) => (props.isLastChild ? "0" : "-1px")};
 
   &:hover {
-    background-color: #3700b3;
+    background-color: ${(props) => (props.isActive ? "#4d00b3" : "#3700b3")};
   }
 
   &:active {
-    background-color: #aa00ff;
+    background-color: ${(props) => (props.isActive ? "#aa00ff" : "#4d00b3")};
   }
 `;

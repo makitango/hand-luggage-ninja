@@ -1,17 +1,29 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 export default function UnitSystem({ handleUnitSystemChange }) {
+  const [activeUnitSystem, setActiveUnitSystem] = useState("metric");
+
+  const handleButtonClick = (unitSystem) => {
+    setActiveUnitSystem(unitSystem);
+    handleUnitSystemChange(unitSystem);
+  };
+
   return (
     <>
       <H4>Unit system</H4>
       <ButtonContainer>
-        <Button type="button" onClick={() => handleUnitSystemChange("metric")}>
+        <Button
+          isActive={activeUnitSystem === "metric"}
+          type="button"
+          onClick={() => handleButtonClick("metric")}
+        >
           Metric
         </Button>
         <Button
+          isActive={activeUnitSystem === "imperial"}
           type="button"
-          onClick={() => handleUnitSystemChange("imperial")}
+          onClick={() => handleButtonClick("imperial")}
         >
           Imperial
         </Button>
@@ -48,7 +60,7 @@ const Button = styled.button`
   height: 50px;
   margin: 0;
   padding: 1em;
-  background-color: #6200ee;
+  background-color: ${(props) => (props.isActive ? "#3700b3" : "#6200ee")};
   color: #ffffff;
   border: none;
   border-bottom: 1px solid #dddddd;
@@ -58,11 +70,11 @@ const Button = styled.button`
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #3700b3;
+    background-color: ${(props) => (props.isActive ? "#3700b3" : "#4d00b3")};
   }
 
   &:active {
-    background-color: #aa00ff;
+    background-color: ${(props) => (props.isActive ? "#aa00ff" : "#4d00b3")};
   }
 
   &:first-child {
@@ -71,29 +83,5 @@ const Button = styled.button`
 
   &:last-child {
     border-radius: 0 16px 16px 0;
-  }
-`;
-
-const Label = styled.label`
-  display: block;
-  font-size: 16px;
-  font-weight: 500;
-  color: #6200ee;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 36px;
-  padding: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  border: 1px solid #6200ee;
-  border-radius: 8px;
-  margin-top: 4px;
-  box-sizing: border-box;
-  outline: none;
-
-  &:focus {
-    border-color: #3700b3;
   }
 `;
