@@ -58,19 +58,38 @@ export default function AirlineList({ airlines, unitSystem }) {
             <GridContainer>
               <Column1>Personal item</Column1>
               <Column2>
-                {["length", "width", "height"].map((dim) => (
-                  <span
-                    key={dim}
-                    style={getDimensionColor(
-                      dim,
-                      personalItem[dim],
-                      averagePersonalItem
-                    )}
-                  >
-                    {convertDimension(personalItem[dim], unitSystem)}
-                    {unitSystem === "metric" ? " cm" : " in"} x{" "}
-                  </span>
-                ))}
+                <span
+                  style={getDimensionColor(
+                    "length",
+                    personalItem.length,
+                    averagePersonalItem
+                  )}
+                >
+                  {convertDimension(personalItem.length, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
+                {" x "}
+                <span
+                  style={getDimensionColor(
+                    "width",
+                    personalItem.width,
+                    averagePersonalItem
+                  )}
+                >
+                  {convertDimension(personalItem.width, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
+                {" x "}
+                <span
+                  style={getDimensionColor(
+                    "height",
+                    personalItem.height,
+                    averagePersonalItem
+                  )}
+                >
+                  {convertDimension(personalItem.height, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
               </Column2>
               <Column3
                 style={{
@@ -88,19 +107,38 @@ export default function AirlineList({ airlines, unitSystem }) {
                 Cabin bag
               </Column1>
               <Column2>
-                {["length", "width", "height"].map((dim) => (
-                  <span
-                    key={dim}
-                    style={getDimensionColor(
-                      dim,
-                      cabinBag[dim],
-                      averageCabinBag
-                    )}
-                  >
-                    {convertDimension(cabinBag[dim], unitSystem)}
-                    {unitSystem === "metric" ? " cm" : " in"} x{" "}
-                  </span>
-                ))}
+                <span
+                  style={getDimensionColor(
+                    "length",
+                    cabinBag.length,
+                    averageCabinBag
+                  )}
+                >
+                  {convertDimension(cabinBag.length, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
+                {" x "}
+                <span
+                  style={getDimensionColor(
+                    "width",
+                    cabinBag.width,
+                    averageCabinBag
+                  )}
+                >
+                  {convertDimension(cabinBag.width, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
+                {" x "}
+                <span
+                  style={getDimensionColor(
+                    "height",
+                    cabinBag.height,
+                    averageCabinBag
+                  )}
+                >
+                  {convertDimension(cabinBag.height, unitSystem)}
+                  {unitSystem === "metric" ? " cm" : " in"}
+                </span>
               </Column2>
               <Column3
                 style={{
