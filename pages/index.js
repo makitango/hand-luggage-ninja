@@ -4,6 +4,7 @@ import MyBags from "@/components/MyBags";
 import Sort from "@/components/Sort";
 import UnitSystem from "@/components/UnitSystem";
 import { convertDimension } from "@/utils";
+import { styled } from "styled-components";
 
 export default function HomePage({
   airlines,
@@ -38,8 +39,9 @@ export default function HomePage({
     }
   }
   return (
-    <div style={{ border: "1px solid black", padding: 10 }}>
-      <h1>Hand luggage ninja</h1>
+    <div>
+      <H1>Hand luggage ninja</H1>
+      <hr />
       <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
       <hr />
       <Sort handleSortOptionChange={handleSortOptionChange} />
@@ -55,3 +57,8 @@ export default function HomePage({
     </div>
   );
 }
+
+const H1 = styled.h1`
+  text-align: center;
+  margin: 16px 0;
+`;

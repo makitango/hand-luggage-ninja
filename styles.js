@@ -1,4 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import { Open_Sans, Raleway } from "@next/font/google";
+
+const openSans = Open_Sans({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin"] });
 
 export default createGlobalStyle`
   *,
@@ -9,6 +13,8 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: system-ui;
+    font-family: ${raleway.style.fontFamily}; 
+    padding: 2rem;
+
   }
 `;

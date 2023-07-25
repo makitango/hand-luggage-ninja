@@ -2,6 +2,9 @@ import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
 import { useState } from "react";
 import { calculateVolume } from "@/utils";
+import { Raleway } from "next/font/google";
+
+const mainFont = Raleway({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
