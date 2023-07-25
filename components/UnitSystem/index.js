@@ -48,8 +48,8 @@ const Button = styled.button`
   height: 50px;
   margin: 0;
   padding: 1em;
-  background-color: #ffffff;
-  color: #333333;
+  background-color: #6200ee;
+  color: #ffffff;
   border: none;
   border-bottom: 1px solid #dddddd;
   font-size: 16px;
@@ -58,11 +58,11 @@ const Button = styled.button`
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: #3700b3;
   }
 
   &:active {
-    background-color: #e6e6e6;
+    background-color: #aa00ff;
   }
 
   &:first-child {
@@ -71,5 +71,29 @@ const Button = styled.button`
 
   &:last-child {
     border-radius: 0 16px 16px 0;
+  }
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #6200ee;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 36px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #6200ee;
+  border-radius: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  outline: none;
+
+  &:focus {
+    border-color: #3700b3;
   }
 `;

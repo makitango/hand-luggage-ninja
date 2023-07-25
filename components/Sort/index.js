@@ -53,28 +53,25 @@ const Button = styled.button`
   height: 50px;
   margin: 0;
   padding: 1em;
-  background-color: #ffffff;
-  color: #333333;
+  background-color: #6200ee;
+  color: #ffffff;
   border: none;
-  border-bottom: 1px solid #dddddd;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+  border-radius: 0; /* Remove rounded corners from all sides */
+  border-bottom: ${(props) =>
+    props.isLastChild ? "none" : "1px solid #dddddd"};
+  margin-bottom: ${(props) =>
+    props.isLastChild
+      ? "0"
+      : "-1px"}; /* Negative margin-bottom to remove the line between buttons */
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: #3700b3;
   }
 
   &:active {
-    background-color: #e6e6e6;
-  }
-
-  &:last-child {
-    border-bottom: none;
-    border-radius: 0 0 16px 16px;
-  }
-
-  &:first-child {
-    border-radius: 16px 16px 0 0;
+    background-color: #aa00ff;
   }
 `;

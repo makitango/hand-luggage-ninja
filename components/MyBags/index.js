@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { calculateVolume, convertDimension } from "@/utils";
 import BagForm from "./BagForm";
+import { styled } from "styled-components";
 
 export default function MyBags({
   personalItem,
@@ -130,10 +131,10 @@ export default function MyBags({
 
   return (
     <>
-      <h2>Personal Item</h2>
+      <H2>Personal Item</H2>
       {personalItem && editType !== "personalItem" ? (
         <>
-          <p>
+          <P>
             {convertDimension(personalItem.length, unitSystem)}
             {" x "}
             {convertDimension(personalItem.width, unitSystem)}
@@ -141,19 +142,21 @@ export default function MyBags({
             {convertDimension(personalItem.height, unitSystem)}
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "} <strong>{calculateVolume(personalItem)} l</strong>
-          </p>
-          {bags.personalItem.deleted ? (
-            <button onClick={() => handleUndoDelete("personalItem")}>
-              Undo delete? ({bags.personalItem.remainingSeconds})
-            </button>
-          ) : (
-            <>
-              <button onClick={() => handleEdit("personalItem")}>Edit</button>
-              <button onClick={() => handleBagDelete("personalItem")}>
-                Delete
-              </button>
-            </>
-          )}
+          </P>{" "}
+          <ButtonContainer>
+            {bags.personalItem.deleted ? (
+              <Button onClick={() => handleUndoDelete("personalItem")}>
+                Undo delete? ({bags.personalItem.remainingSeconds})
+              </Button>
+            ) : (
+              <>
+                <Button onClick={() => handleEdit("personalItem")}>Edit</Button>
+                <Button onClick={() => handleBagDelete("personalItem")}>
+                  Delete
+                </Button>
+              </>
+            )}{" "}
+          </ButtonContainer>
         </>
       ) : (
         <BagForm
@@ -165,10 +168,10 @@ export default function MyBags({
         />
       )}
 
-      <h2>Cabin Bag</h2>
+      <H2>Cabin Bag</H2>
       {cabinBag && editType !== "cabinBag" ? (
         <>
-          <p>
+          <P>
             {convertDimension(cabinBag.length, unitSystem)}
             {" x "}
             {convertDimension(cabinBag.width, unitSystem)}
@@ -177,19 +180,21 @@ export default function MyBags({
             {unitSystem === "metric" ? " cm" : " in"}
             {" | "}
             <strong>{calculateVolume(cabinBag)} l</strong>
-          </p>
-          {bags.cabinBag.deleted ? (
-            <button onClick={() => handleUndoDelete("cabinBag")}>
-              Undo delete? ({bags.cabinBag.remainingSeconds})
-            </button>
-          ) : (
-            <>
-              <button onClick={() => handleEdit("cabinBag")}>Edit</button>
-              <button onClick={() => handleBagDelete("cabinBag")}>
-                Delete
-              </button>
-            </>
-          )}
+          </P>{" "}
+          <ButtonContainer>
+            {bags.cabinBag.deleted ? (
+              <Button onClick={() => handleUndoDelete("cabinBag")}>
+                Undo delete? ({bags.cabinBag.remainingSeconds})
+              </Button>
+            ) : (
+              <>
+                <Button onClick={() => handleEdit("cabinBag")}>Edit</Button>
+                <Button onClick={() => handleBagDelete("cabinBag")}>
+                  Delete
+                </Button>
+              </>
+            )}
+          </ButtonContainer>
         </>
       ) : (
         <BagForm
@@ -202,13 +207,95 @@ export default function MyBags({
       )}
 
       {personalItem && cabinBag && (
-        <p>
+        <P>
           <strong>
             Combined volume{" "}
             {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
           </strong>
-        </p>
+        </P>
       )}
     </>
   );
 }
+
+const H2 = styled.h2`
+  text-align: center;
+  margin: 16px 0;
+`;
+
+const P = styled.p`
+  text-align: center;
+  margin: 16px 0;
+`;
+const ButtonContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 300px;
+  margin: auto;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const Button = styled.button`
+  flex: 1;
+  height: 50px;
+  margin: 0;
+  padding: 1em;
+  background-color: #6200ee;
+  color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #dddddd;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #3700b3;
+  }
+
+  &:active {
+    background-color: #aa00ff;
+  }
+
+  &:first-child {
+    border-radius: 16px 0 0 16px;
+  }
+
+  &:last-child {
+    border-radius: 0 16px 16px 0;
+  }
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #6200ee;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 36px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #6200ee;
+  border-radius: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  outline: none;
+
+  &:focus {
+    border-color: #3700b3;
+  }
+`;
