@@ -2,15 +2,13 @@ import { airlines, calculateVolume, convertDimension } from "@/utils";
 import styled from "styled-components";
 
 export default function AirlineList({ airlines, unitSystem }) {
-  // Calculate the average dimensions and volume for personal items and cabin bags
+  const airlinesCount = airlines.length;
   const averageDimensionsAndVolume = airlines.reduce(
     (acc, airline) => {
-      acc.totalPersonalItem.length += airline.personalItem.length;
-      acc.totalPersonalItem.width += airline.personalItem.width;
-      acc.totalPersonalItem.height += airline.personalItem.height;
-      acc.totalCabinBag.length += airline.cabinBag.length;
-      acc.totalCabinBag.width += airline.cabinBag.width;
-      acc.totalCabinBag.height += airline.cabinBag.height;
+      ["length", "width", "height"].forEach((dim) => {
+        acc.totalPersonalItem[dim] += airline.personalItem[dim];
+        acc.totalCabinBag[dim] += airline.cabinBag[dim];
+      });
       acc.totalPersonalItemVolume += calculateVolume(airline.personalItem);
       acc.totalCabinBagVolume += calculateVolume(airline.cabinBag);
       return acc;
@@ -23,40 +21,47 @@ export default function AirlineList({ airlines, unitSystem }) {
     }
   );
 
-  const airlinesCount = airlines.length;
-  const averagePersonalItem = {
-    length: averageDimensionsAndVolume.totalPersonalItem.length / airlinesCount,
-    width: averageDimensionsAndVolume.totalPersonalItem.width / airlinesCount,
-    height: averageDimensionsAndVolume.totalPersonalItem.height / airlinesCount,
-  };
-  const averageCabinBag = {
-    length: averageDimensionsAndVolume.totalCabinBag.length / airlinesCount,
-    width: averageDimensionsAndVolume.totalCabinBag.width / airlinesCount,
-    height: averageDimensionsAndVolume.totalCabinBag.height / airlinesCount,
-  };
+  const averagePersonalItem = Object.entries(
+    averageDimensionsAndVolume.totalPersonalItem
+  ).reduce((acc, [dim, value]) => {
+    acc[dim] = value / airlinesCount;
+    return acc;
+  }, {});
+
   const averagePersonalItemVolume =
     averageDimensionsAndVolume.totalPersonalItemVolume / airlinesCount;
+
+  const averageCabinBag = Object.entries(
+    averageDimensionsAndVolume.totalCabinBag
+  ).reduce((acc, [dim, value]) => {
+    acc[dim] = value / airlinesCount;
+    return acc;
+  }, {});
+
   const averageCabinBagVolume =
     averageDimensionsAndVolume.totalCabinBagVolume / airlinesCount;
 
-  // Function to get the color based on the percentage difference between the value and the average
   function getColor(value, averageValue) {
-    const percentageDiff = (value - averageValue) / averageValue;
-    if (percentageDiff < -0.2) {
-      return "red"; // Inverted: values below the average are red
-    } else if (percentageDiff > 0.2) {
-      return "green"; // Inverted: values above the average are green
-    } else {
+    if (typeof value !== "number") {
       return "inherit";
     }
+    const percentageDiff = (value - averageValue) / averageValue;
+    return percentageDiff < -0.2
+      ? "red"
+      : percentageDiff > 0.2
+      ? "green"
+      : "inherit";
   }
 
   return (
     <CardContainer>
       {airlines.map(({ id, name, personalItem, cabinBag, freeCabinBag }) => {
-        // Calculate the dimensions and volume of the current airline's bags
         const personalItemVolume = calculateVolume(personalItem);
         const cabinBagVolume = calculateVolume(cabinBag);
+
+        const getDimensionColor = (dim, value, averageValue) => {
+          return { color: getColor(value, averageValue[dim]) };
+        };
 
         return (
           <Card key={id}>
@@ -64,48 +69,62 @@ export default function AirlineList({ airlines, unitSystem }) {
             <GridContainer>
               <Column1>Personal item</Column1>
               <Column2>
-                {convertDimension(personalItem.length, unitSystem)}
-                {" x "}
-                {convertDimension(personalItem.width, unitSystem)}
-                {" x "}
-                <span
-                  style={{
-                    color: getColor(
-                      personalItem.height,
-                      averagePersonalItem.height
-                    ),
-                  }}
-                >
-                  {convertDimension(personalItem.height, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
-                </span>
+                {["length", "width", "height"].map((dim) => (
+                  <span
+                    key={dim}
+                    style={getDimensionColor(
+                      dim,
+                      personalItem[dim],
+                      averagePersonalItem
+                    )}
+                  >
+                    {convertDimension(personalItem[dim], unitSystem)}
+                    {unitSystem === "metric" ? " cm" : " in"} x{" "}
+                  </span>
+                ))}
               </Column2>
-              <Column3>{calculateVolume(personalItem)} l</Column3>
+              <Column3
+                style={{
+                  color: getColor(
+                    personalItemVolume,
+                    averagePersonalItemVolume
+                  ),
+                }}
+              >
+                {personalItemVolume} l
+              </Column3>
             </GridContainer>
             <GridContainer>
               <Column1 style={{ color: freeCabinBag ? "inherit" : "red" }}>
                 Cabin bag
               </Column1>
               <Column2>
-                {convertDimension(cabinBag.length, unitSystem)}
-                {" x "}
-                {convertDimension(cabinBag.width, unitSystem)}
-                {" x "}
-                <span
-                  style={{
-                    color: getColor(cabinBag.height, averageCabinBag.height),
-                  }}
-                >
-                  {convertDimension(cabinBag.height, unitSystem)}
-                  {unitSystem === "metric" ? " cm" : " in"}
-                </span>
+                {["length", "width", "height"].map((dim) => (
+                  <span
+                    key={dim}
+                    style={getDimensionColor(
+                      dim,
+                      cabinBag[dim],
+                      averageCabinBag
+                    )}
+                  >
+                    {convertDimension(cabinBag[dim], unitSystem)}
+                    {unitSystem === "metric" ? " cm" : " in"} x{" "}
+                  </span>
+                ))}
               </Column2>
-              <Column3>{calculateVolume(cabinBag)} l</Column3>
+              <Column3
+                style={{
+                  color: getColor(cabinBagVolume, averageCabinBagVolume),
+                }}
+              >
+                {cabinBagVolume} l
+              </Column3>
             </GridContainer>
             <CombinedVolume>
               <CombinedVolumeLeft>Combined</CombinedVolumeLeft>
               <CombinedVolumeRight>
-                {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
+                {personalItemVolume + cabinBagVolume} l
               </CombinedVolumeRight>
             </CombinedVolume>
           </Card>
