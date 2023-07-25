@@ -34,7 +34,7 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
             <Column3>{calculateVolume(cabinBag)} l</Column3>
           </GridContainer>
           <CombinedVolume>
-            <CombinedVolumeLeft>Combined volume</CombinedVolumeLeft>
+            <CombinedVolumeLeft>Combined</CombinedVolumeLeft>
             <CombinedVolumeRight>
               {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
             </CombinedVolumeRight>
@@ -91,6 +91,7 @@ const Column3 = styled.div`
   text-align: right;
   white-space: nowrap;
   line-height: 2;
+  font-weight: bold;
 `;
 
 const CombinedVolume = styled.div`
