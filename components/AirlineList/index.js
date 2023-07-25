@@ -1,4 +1,4 @@
-import { airlines, calculateVolume, convertDimension } from "@/utils";
+import { calculateVolume, convertDimension, getColor } from "@/utils";
 import styled from "styled-components";
 
 export default function AirlineList({ airlines, unitSystem }) {
@@ -40,18 +40,6 @@ export default function AirlineList({ airlines, unitSystem }) {
 
   const averageCabinBagVolume =
     averageDimensionsAndVolume.totalCabinBagVolume / airlinesCount;
-
-  function getColor(value, averageValue) {
-    if (typeof value !== "number") {
-      return "inherit";
-    }
-    const percentageDiff = (value - averageValue) / averageValue;
-    return percentageDiff < -0.2
-      ? "red"
-      : percentageDiff > 0.2
-      ? "green"
-      : "inherit";
-  }
 
   return (
     <CardContainer>
