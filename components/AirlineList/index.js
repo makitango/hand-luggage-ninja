@@ -46,6 +46,7 @@ export default function AirlineList({ airlines, unitSystem }) {
       {airlines.map(({ id, name, personalItem, cabinBag, freeCabinBag }) => {
         const personalItemVolume = calculateVolume(personalItem);
         const cabinBagVolume = calculateVolume(cabinBag);
+        const combinedVolumeValue = personalItemVolume + cabinBagVolume;
 
         const getDimensionColor = (dim, value, averageValue) => {
           return { color: getColor(value, averageValue[dim]) };
@@ -111,8 +112,24 @@ export default function AirlineList({ airlines, unitSystem }) {
             </GridContainer>
             <CombinedVolume>
               <CombinedVolumeLeft>Combined</CombinedVolumeLeft>
-              <CombinedVolumeRight>
-                {personalItemVolume + cabinBagVolume} l
+              <CombinedVolumeRight
+                combinedVolumeValue={combinedVolumeValue}
+                averageCombinedVolume={
+                  averagePersonalItemVolume + averageCabinBagVolume
+                }
+              >
+                <span
+                  style={getDimensionColor(
+                    "combinedVolumeValue",
+                    combinedVolumeValue,
+                    {
+                      combinedVolumeValue:
+                        averagePersonalItemVolume + averageCabinBagVolume,
+                    }
+                  )}
+                >
+                  {combinedVolumeValue} l
+                </span>
               </CombinedVolumeRight>
             </CombinedVolume>
           </Card>
