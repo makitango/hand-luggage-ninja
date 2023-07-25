@@ -43,6 +43,7 @@ export default function HomePage({
       <H1>Settings</H1>
       <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
       <Sort handleSortOptionChange={handleSortOptionChange} />
+      <br />
       <hr />
       <H1>My bags</H1>
       <MyBags
@@ -51,6 +52,7 @@ export default function HomePage({
         unitSystem={unitSystem}
         handleFormSave={handleFormSave}
       />
+      <br />
       <hr />
       <H1>Airline list</H1>
       <AirlineList airlines={airlines} unitSystem={unitSystem} bags={bags} />

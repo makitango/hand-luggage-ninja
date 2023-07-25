@@ -8,9 +8,7 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
         <Card key={id}>
           <Name>{name}</Name>
           <GridContainer>
-            <Column1>
-              <strong>Personal item</strong>
-            </Column1>
+            <Column1>Personal item</Column1>
             <Column2>
               {convertDimension(personalItem.length, unitSystem)}
               {" x "}
@@ -22,10 +20,8 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
             <Column3>{calculateVolume(personalItem)} l</Column3>
           </GridContainer>
           <GridContainer>
-            <Column1>
-              <strong style={{ color: freeCabinBag ? "inherit" : "red" }}>
-                Cabin bag
-              </strong>{" "}
+            <Column1 style={{ color: freeCabinBag ? "inherit" : "red" }}>
+              Cabin bag
             </Column1>
             <Column2>
               {convertDimension(cabinBag.length, unitSystem)}
@@ -38,8 +34,10 @@ export default function AirlineList({ airlines, unitSystem, bags }) {
             <Column3>{calculateVolume(cabinBag)} l</Column3>
           </GridContainer>
           <CombinedVolume>
-            <strong>Combined volume</strong>
-            {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
+            <CombinedVolumeLeft>Combined volume</CombinedVolumeLeft>
+            <CombinedVolumeRight>
+              {calculateVolume(personalItem) + calculateVolume(cabinBag)} l
+            </CombinedVolumeRight>
           </CombinedVolume>
         </Card>
       ))}
@@ -78,6 +76,7 @@ const Column1 = styled.div`
   text-align: left;
   white-space: nowrap;
   line-height: 2;
+  font-weight: bold;
 `;
 
 const Column2 = styled.div`
@@ -95,8 +94,19 @@ const Column3 = styled.div`
 `;
 
 const CombinedVolume = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   text-align: left;
   line-height: 2;
+`;
+
+const CombinedVolumeLeft = styled.div`
+  text-align: left;
+  font-weight: bold;
+`;
+
+const CombinedVolumeRight = styled.div`
+  text-align: right;
+  font-weight: bold;
 `;
