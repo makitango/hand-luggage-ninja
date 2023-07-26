@@ -41,6 +41,9 @@ export default function AirlineList({ airlines, unitSystem }) {
   const averageCabinBagVolume =
     averageDimensionsAndVolume.totalCabinBagVolume / airlinesCount;
 
+  const averageCombinedVolumeValue =
+    averagePersonalItemVolume + averageCabinBagVolume;
+
   return (
     <CardContainer>
       {airlines.map(({ id, name, personalItem, cabinBag, freeCabinBag }) => {
@@ -139,17 +142,11 @@ export default function AirlineList({ airlines, unitSystem }) {
             </GridContainer>
             <CombinedVolume>
               <CombinedVolumeLeft>Combined</CombinedVolumeLeft>
-              <CombinedVolumeRight>
-                <span
-                  style={{
-                    color: getColor(combinedVolumeValue, {
-                      combinedVolumeValue:
-                        averagePersonalItemVolume + averageCabinBagVolume,
-                    }),
-                  }}
-                >
-                  {combinedVolumeValue} l
-                </span>
+              <CombinedVolumeRight
+                volumeValue={combinedVolumeValue}
+                averageValue={averageCombinedVolumeValue}
+              >
+                <span>{combinedVolumeValue} l</span>
               </CombinedVolumeRight>
             </CombinedVolume>
           </Card>
@@ -226,4 +223,5 @@ const CombinedVolumeLeft = styled.div`
 const CombinedVolumeRight = styled.div`
   text-align: right;
   font-weight: bold;
+  color: ${(props) => getColor(props.volumeValue, props.averageValue)};
 `;
