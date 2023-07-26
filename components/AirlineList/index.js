@@ -180,8 +180,8 @@ const Name = styled.h2`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: 40% 30% auto;
+  gap: 10px;
   align-items: center;
 `;
 
