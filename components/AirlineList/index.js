@@ -168,6 +168,7 @@ const CardContainer = styled.div`
 
 const Card = styled.div`
   padding: 20px;
+  max-width: 300px;
   border: 1px solid #dddddd;
   border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -176,6 +177,7 @@ const Card = styled.div`
 const Name = styled.h2`
   text-align: left;
   margin-top: 0;
+  margin-bottom: 2px;
 `;
 
 const GridContainer = styled.div`
