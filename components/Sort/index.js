@@ -79,6 +79,7 @@ const Button = styled.button`
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+  transition: background-color 0.3s ease-in-out;
   border-radius: 0;
   border-bottom: ${(props) =>
     props.isLastChild ? "none" : "1px solid #dddddd"};
