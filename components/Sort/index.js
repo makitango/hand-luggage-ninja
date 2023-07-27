@@ -4,10 +4,10 @@ import styled from "styled-components";
 export default function Sort({ handleSortOptionChange }) {
   const [activeSortOption, setActiveSortOption] = useState("alphabetical");
 
-  const handleButtonClick = (sortOption) => {
+  function handleButtonClick(sortOption) {
     setActiveSortOption(sortOption);
     handleSortOptionChange(sortOption);
-  };
+  }
 
   return (
     <div>
