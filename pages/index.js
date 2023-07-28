@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AirlineList from "@/components/AirlineList";
 import MyBags from "@/components/MyBags";
-import Sort from "@/components/Sort";
+import Sort from "@/components/Sort"; // Correct import for the Sort component.
 import UnitSystem from "@/components/UnitSystem";
 import { convertDimension } from "@/utils";
 import { styled } from "styled-components";
@@ -38,11 +38,19 @@ export default function HomePage({
       }));
     }
   }
+
+  function handleButtonClick(sortOption) {
+    handleSortOptionChange(sortOption);
+  }
+
   return (
     <div>
       <H1>Settings</H1>
       <UnitSystem handleUnitSystemChange={handleUnitSystemChange} />
-      <Sort handleSortOptionChange={handleSortOptionChange} />
+      <Sort
+        handleSortOptionChange={handleSortOptionChange}
+        handleButtonClick={handleButtonClick}
+      />
       <br />
       <hr />
       <H1>My bags</H1>

@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
-import { useState } from "react";
 import { calculateVolume } from "@/utils";
 import { Raleway } from "next/font/google";
+import Sort from "@/components/Sort";
 
 const mainFont = Raleway({ subsets: ["latin"] });
 
@@ -10,11 +11,14 @@ export default function App({ Component, pageProps }) {
   const [unitSystem, setUnitSystem] = useState("metric");
   const [airlines, setAirlines] = useState(initialAirlines);
   const [bags, setBags] = useState({});
+  const [activeSortOption, setActiveSortOption] = useState("alphabetical");
 
   function handleUnitSystemChange(option) {
     setUnitSystem(option);
   }
+
   function handleSortOptionChange(option) {
+    setActiveSortOption(option);
     const sortedAirlines = [...airlines];
     if (option === "alphabetical") {
       sortedAirlines.sort((a, b) => a.name.localeCompare(b.name));
@@ -69,6 +73,7 @@ export default function App({ Component, pageProps }) {
 
     setAirlines(sortedAirlines);
   }
+
   function handleFormSubmit(type, dimensions) {
     setBags((prevBags) => ({
       ...prevBags,
@@ -77,6 +82,11 @@ export default function App({ Component, pageProps }) {
         ...dimensions,
       },
     }));
+  }
+
+  function handleButtonClick(sortOption) {
+    setActiveSortOption(sortOption);
+    handleSortOptionChange(sortOption);
   }
 
   return (
@@ -90,6 +100,8 @@ export default function App({ Component, pageProps }) {
         unitSystem={unitSystem}
         bags={bags}
         handleFormSubmit={handleFormSubmit}
+        activeSortOption={activeSortOption}
+        handleButtonClick={handleButtonClick}
       />
     </>
   );

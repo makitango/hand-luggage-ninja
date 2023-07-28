@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-export default function Sort({ handleSortOptionChange }) {
-  const [activeSortOption, setActiveSortOption] = useState("alphabetical");
-
-  function handleButtonClick(sortOption) {
-    setActiveSortOption(sortOption);
-    handleSortOptionChange(sortOption);
-  }
-
+export default function Sort({ activeSortOption, handleButtonClick }) {
   return (
     <div>
       <H4>
