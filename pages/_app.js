@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import GlobalStyle from "../styles";
 import { airlines as initialAirlines } from "../lib/data";
-import { calculateVolume } from "@/utils";
+import { calculateVolume, convertDimension } from "@/utils";
 import { Raleway } from "next/font/google";
-import Sort from "@/components/Sort";
 
 const mainFont = Raleway({ subsets: ["latin"] });
 
@@ -74,14 +73,28 @@ export default function App({ Component, pageProps }) {
     setAirlines(sortedAirlines);
   }
 
-  function handleFormSubmit(type, dimensions) {
-    setBags((prevBags) => ({
-      ...prevBags,
-      [type]: {
-        ...prevBags[type],
-        ...dimensions,
-      },
-    }));
+  function handleFormSave(type, dimensions) {
+    if (dimensions === null) {
+      setBags((prevBags) => {
+        const newBags = { ...prevBags };
+        delete newBags[type];
+        return newBags;
+      });
+    } else {
+      const adjustedDimensions =
+        unitSystem === "imperial"
+          ? {
+              length: convertDimension(dimensions.length * 2.54, "metric"),
+              width: convertDimension(dimensions.width * 2.54, "metric"),
+              height: convertDimension(dimensions.height * 2.54, "metric"),
+            }
+          : dimensions;
+
+      setBags((prevBags) => ({
+        ...prevBags,
+        [type]: adjustedDimensions,
+      }));
+    }
   }
 
   function handleButtonClick(sortOption) {
@@ -99,9 +112,11 @@ export default function App({ Component, pageProps }) {
         handleUnitSystemChange={handleUnitSystemChange}
         unitSystem={unitSystem}
         bags={bags}
-        handleFormSubmit={handleFormSubmit}
+        handleFormSave={handleFormSave}
         activeSortOption={activeSortOption}
         handleButtonClick={handleButtonClick}
+        personalItem={bags.personalItem} // Pass personalItem as a prop
+        cabinBag={bags.cabinBag} // Pass cabinBag as a prop
       />
     </>
   );
