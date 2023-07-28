@@ -112,8 +112,8 @@ export default function App({ Component, pageProps }) {
         handleFormSave={handleFormSave}
         activeSortOption={activeSortOption}
         handleButtonClick={handleButtonClick}
-        personalItem={bags.personalItem} // Pass personalItem as a prop
-        cabinBag={bags.cabinBag} // Pass cabinBag as a prop
+        personalItem={bags.personalItem}
+        cabinBag={bags.cabinBag}
       />
     </>
   );

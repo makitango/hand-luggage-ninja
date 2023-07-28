@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-export default function UnitSystem({ handleUnitSystemChange }) {
-  const [activeUnitSystem, setActiveUnitSystem] = useState("metric");
-
-  const handleButtonClick = (unitSystem) => {
-    setActiveUnitSystem(unitSystem);
-    handleUnitSystemChange(unitSystem);
-  };
-
+export default function UnitSystem({ unitSystem, handleUnitSystemChange }) {
   return (
     <>
       <H4>Unit system</H4>
       <ButtonContainer>
         <Button
-          isActive={activeUnitSystem === "metric"}
+          isActive={unitSystem === "metric"}
           type="button"
-          onClick={() => handleButtonClick("metric")}
+          onClick={() => handleUnitSystemChange("metric")}
         >
           Metric
         </Button>
         <Button
-          isActive={activeUnitSystem === "imperial"}
+          isActive={unitSystem === "imperial"}
           type="button"
-          onClick={() => handleButtonClick("imperial")}
+          onClick={() => handleUnitSystemChange("imperial")}
         >
           Imperial
         </Button>
