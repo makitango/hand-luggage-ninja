@@ -17,4 +17,11 @@ export default createGlobalStyle`
     padding: 2rem;
 
   }
+
+  button {
+    margin: 0;
+    font-family: ${raleway.style.fontFamily}; 
+    padding: 2rem;
+
+  }
 `;
