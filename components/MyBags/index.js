@@ -98,15 +98,15 @@ export default function MyBags({
     };
   }, [bags, handleFormSave]);
 
-  const handleEdit = (type) => {
+  function handleEdit(type) {
     setEditType(type);
-  };
+  }
 
-  const handleCancelEdit = () => {
+  function handleCancelEdit() {
     setEditType(null);
-  };
+  }
 
-  const handleBagDelete = (type) => {
+  function handleBagDelete(type) {
     setBags((prevBags) => ({
       ...prevBags,
       [type]: {
@@ -116,9 +116,9 @@ export default function MyBags({
       },
     }));
     setEditType(null);
-  };
+  }
 
-  const handleUndoDelete = (type) => {
+  function handleUndoDelete(type) {
     setBags((prevBags) => ({
       ...prevBags,
       [type]: {
@@ -127,7 +127,7 @@ export default function MyBags({
         remainingSeconds: 0,
       },
     }));
-  };
+  }
 
   return (
     <>
