@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { calculateVolume, convertDimension } from "@/utils";
 import { styled } from "styled-components";
 
 export default function BagForm({
@@ -11,25 +10,32 @@ export default function BagForm({
 }) {
   const [bags, setBags] = useState(initialValues || {});
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     handleFormSave(type, bags);
     onCancel && onCancel();
-  };
+  }
 
-  const handleInputChange = (e, dimension) => {
+  function handleInputChange(e, dimension) {
     const value = e.target.value;
 
     setBags((prevBags) => ({
       ...prevBags,
       [dimension]: Number(value),
     }));
-  };
+  }
 
-  const isSaveDisabled =
-    bags.length === undefined ||
-    bags.width === undefined ||
-    bags.height === undefined;
+  function isSaveDisabled() {
+    return (
+      bags.length === undefined ||
+      bags.width === undefined ||
+      bags.height === undefined
+    );
+  }
+
+  function handleAddButtonClick() {
+    handleInputChange({ target: { value: "" } }, "length");
+  }
 
   return (
     <>
@@ -37,13 +43,7 @@ export default function BagForm({
       bags.width === undefined &&
       bags.height === undefined ? (
         <ButtonContainer>
-          <Button
-            onClick={() =>
-              handleInputChange({ target: { value: "" } }, "length")
-            }
-          >
-            Add
-          </Button>
+          <Button onClick={handleAddButtonClick}>Add</Button>
         </ButtonContainer>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ export default function BagForm({
             </ListItem>
           </List>
           <ButtonContainer>
-            <Button type="submit" disabled={isSaveDisabled}>
+            <Button type="submit" disabled={isSaveDisabled()}>
               Save
             </Button>
             <Button type="button" onClick={() => onCancel()}>
