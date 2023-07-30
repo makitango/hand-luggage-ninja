@@ -9,15 +9,18 @@ export default function MyBags({
   unitSystem,
   handleFormSave,
 }) {
-  const [editType, setEditType] = useState(null);
   const [bags, setBags] = useState({
     personalItem: {
+      ...personalItem,
       deleted: false,
       remainingSeconds: 0,
+      editType: false,
     },
     cabinBag: {
+      ...cabinBag,
       deleted: false,
       remainingSeconds: 0,
+      editType: false,
     },
   });
 
@@ -99,11 +102,23 @@ export default function MyBags({
   }, [bags, handleFormSave]);
 
   function handleEdit(type) {
-    setEditType(type);
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        editType: true,
+      },
+    }));
   }
 
-  function handleCancelEdit() {
-    setEditType(null);
+  function handleCancelEdit(type) {
+    setBags((prevBags) => ({
+      ...prevBags,
+      [type]: {
+        ...prevBags[type],
+        editType: false,
+      },
+    }));
   }
 
   function handleBagDelete(type) {
@@ -113,9 +128,9 @@ export default function MyBags({
         ...prevBags[type],
         deleted: true,
         remainingSeconds: 3,
+        editType: false,
       },
     }));
-    setEditType(null);
   }
 
   function handleUndoDelete(type) {
@@ -132,7 +147,7 @@ export default function MyBags({
   return (
     <>
       <H2>Personal Item</H2>
-      {personalItem && editType !== "personalItem" ? (
+      {personalItem && !bags.personalItem.editType ? (
         <>
           <P>
             {convertDimension(personalItem.length, unitSystem)}
@@ -164,12 +179,12 @@ export default function MyBags({
           handleFormSave={handleFormSave}
           unitSystem={unitSystem}
           initialValues={personalItem}
-          onCancel={handleCancelEdit}
+          onCancel={() => handleCancelEdit("personalItem")}
         />
       )}
 
       <H2>Cabin Bag</H2>
-      {cabinBag && editType !== "cabinBag" ? (
+      {cabinBag && !bags.cabinBag.editType ? (
         <>
           <P>
             {convertDimension(cabinBag.length, unitSystem)}
@@ -202,7 +217,7 @@ export default function MyBags({
           handleFormSave={handleFormSave}
           unitSystem={unitSystem}
           initialValues={cabinBag}
-          onCancel={handleCancelEdit}
+          onCancel={() => handleCancelEdit("cabinBag")}
         />
       )}
 
