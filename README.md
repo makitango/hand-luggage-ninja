@@ -27,7 +27,7 @@ With "Hand Luggage Ninja", you can effortlessly keep track of your bags' measure
 
 You can find the demo [here](https://hand-luggage-ninja.vercel.app/).
 
-## `Local Development`
+### `Local Development`
 
 - Clone this repository with `gh repo clone makitango/hand-luggage-ninja`
 - Install dependencies with `$ npm install`
