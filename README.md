@@ -17,6 +17,12 @@ With "Hand Luggage Ninja", you can effortlessly keep track of your bags' measure
      height="450px"/>
 </div>
 
+### `Tech Stack`
+
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [styled components](https://styled-components.com/)
+
 ### `Demo`
 
 You can find the demo [here](https://hand-luggage-ninja.vercel.app/).
