@@ -7,11 +7,11 @@ With "Hand Luggage Ninja", you can effortlessly keep track of your bags' measure
 ### `Screenshots`
 
 <div align="center">
-  <img src="/public/images/settings.png"
+  <img src="/public/images/readme/settings.png"
      height="450px"/>
-  <img src="/public/images/edit-bag.png"
+  <img src="/public/images/readme/edit-bag.png"
      height="450px"/>
-  <img src="/public/images/bags-and-list.png"
+  <img src="/public/images/readme/bags-and-list.png"
      height="450px"/>
 </div>
 
