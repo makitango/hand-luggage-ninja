@@ -1,37 +1,27 @@
-# New Next Project
+# `Hand Luggage ninja`
 
-This project was created from the neue fische `next` template.
+### `What does it do?`
 
-You can [🔗 **use this template on CodeSandbox**](https://codesandbox.io/p/sandbox/github/neuefische/web-exercises/tree/main/templates/next?file=/README.md) or locally by running this command in your Terminal:
+With "Hand Luggage Ninja", you can effortlessly keep track of your bags' measurements, ensuring they meet each airline's strict carry-on requirements and highlighting if they charge extra for cabin bags. Say goodbye to the stress of last-minute surprises at the gate!
 
-```bash
-npx -y ghcd@latest neuefische/web-exercises/tree/main/templates/next my-app -i
-```
+### `Screenshots`
 
-## Development
+<div align="center">
+  <img src="/public/images/settings.png"
+     height="450px"/>
+  <img src="/public/images/edit-bag.png"
+     height="450px"/>
+  <img src="/public/images/bags-and-list.png"
+     height="450px"/>
+</div>
 
-### Local Development
+### `Demo`
 
-To work locally, please install the dependencies using `npm i` first.
+You can find the demo [here](https://hand-luggage-ninja.vercel.app/).
 
-Run `npm run dev` to start a development server and open the displayed URL in a browser.
+## `Local Development`
 
-Use `npm run test` to run the tests.
-
-### CodeSandbox Cloud
-
-Select the "Preview: 3000" tab to view this project.
-
-Select the "Tests: logs" tab to view the tests.
-
-> The `npm run dev` and `npm run test` scripts run automatically.
-
-### Scripts
-
-You can use the following commands:
-
-- `npm run dev` to start a development server
-- `npm run build` to build the project
-- `npm run start` to start a production server
-- `npm run test` to run the tests
-- `npm run lint` to run the linter
+- Clone this repository with `gh repo clone makitango/hand-luggage-ninja`
+- Install dependencies with `$ npm install`
+- Run in dev mode with `$ npm run dev`
+- Server: [http://localhost:3000/](http://localhost:3000/)
